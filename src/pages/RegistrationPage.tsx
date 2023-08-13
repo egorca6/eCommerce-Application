@@ -1,8 +1,10 @@
+import { RegistrationWindow } from '../components/registration/RegistrationWindow';
+
 export const RegistrationPage = (): JSX.Element => {
   return (
-    <div className="wrapper content">
-      <h1>Registration</h1>
-      <p>Registration</p>
+    <div className="registration__page content">
+      <RegistrationWindow />
     </div>
   );
 };
+export default RegistrationPage;
