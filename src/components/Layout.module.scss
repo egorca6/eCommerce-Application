@@ -1,0 +1,17 @@
+@import '../styles/global';
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: $color-light;
+  color: $color-dark;
+  margin: 0 auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-general;
+  color: $color-brown;
+  height: 50px;
+}

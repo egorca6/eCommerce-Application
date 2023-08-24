@@ -1,0 +1,84 @@
+@import '../styles/global';
+
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: $color-general;
+  height: 100px;
+}
+
+.header__wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  padding: 0 50px;
+  margin: 0 auto;
+}
+
+.navigation {
+  display: flex;
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    color: $color-white;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    &.active {
+      color: $color-brown;
+    }
+    &:hover {
+      color: $color-brown;
+    }
+  }
+}
+
+.burger__button {
+  display: none;
+  background: #d3d3d3;
+  border: #ffffff;
+}
+
+.open {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    color: $color-dark;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin: 10px 0;
+    &.active {
+      color: $color-brown;
+    }
+    &:hover {
+      color: $color-brown;
+    }
+    i {
+      padding: 0 30px;
+    }
+  }
+  @include media-hamburger {
+    .a {
+      display: block;
+    }
+  }
+}
+
+@include media-hamburger {
+  .burger__button {
+    display: block;
+  }
+
+  .navigation {
+    display: none;
+  }
+}

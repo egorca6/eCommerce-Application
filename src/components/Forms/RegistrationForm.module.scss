@@ -1,0 +1,39 @@
+@import '../../styles/global';
+
+.registration_span {
+  color: $color-brown;
+  font-weight: 100;
+  font-size: 1rem;
+  margin: 0.3rem 1rem;
+}
+
+.registration_address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  margin: 5px 0;
+  background: transparent;
+  border: 1px solid $color-brown;
+  border-radius: 8px;
+}
+
+.input {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.span {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.text {
+  font-weight: 700;
+  color: $color-brown;
+  margin: 0 auto;
+  padding: 0 10px;
+}

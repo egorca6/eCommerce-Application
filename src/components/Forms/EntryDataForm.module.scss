@@ -1,0 +1,19 @@
+@import '../../styles/global';
+
+.message {
+  font-size: 150%;
+  color: $color-brown;
+  margin: 0.25rem;
+}
+
+.module__window {
+  width: 40vw;
+  text-align: center;
+}
+
+.text {
+  text-align: center;
+  margin: 0.5rem 0;
+  padding: 0 0.75rem;
+  color: $color-brown;
+}
