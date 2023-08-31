@@ -37,16 +37,30 @@ function App(): JSX.Element {
           <Route path={PAGES.main.route} element={<Layout />}>
             <Route path={PAGES.main.route} element={<MainPage />} />
 
-            {/* @ToDo разобраться с типизацией роутов*/}
-            <Route element={<LayoutCatalog />} errorElement={<ErrorPage />}>
-              <Route path={'catalog'} element={<CatalogMain />} />
-              <Route path={'accessories'} element={<AccessoriesPage />} />
-              <Route path={'cosmetics'} element={<RegistrationPage />} />
-              <Route path={'textiles'} element={<UserProfilePage />} />
-              <Route path={'sets'} element={<UserProfilePage />} />
+            <Route
+              path={PAGES.catalog.route}
+              element={<LayoutCatalog />}
+              errorElement={<ErrorPage />}>
+              <Route index element={<CatalogMain />} />
+              <Route
+                path={PAGES.accessories.route}
+                element={<AccessoriesPage />}
+              />
+              <Route
+                path={PAGES.cosmetics.route}
+                element={<RegistrationPage />}
+              />
+              <Route
+                path={PAGES.textiles.route}
+                element={<UserProfilePage />}
+              />
+              <Route path={PAGES.sets.route} element={<UserProfilePage />} />
             </Route>
 
-            <Route path={'product/:key'} element={<ProductPage />} />
+            <Route
+              path={PAGES.product.route + ':key'}
+              element={<ProductPage />}
+            />
             <Route
               path={PAGES.signin.route}
               element={

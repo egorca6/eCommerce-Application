@@ -16,13 +16,13 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
   const key = data.masterVariant.key;
   const slug = data.slug['en-US'];
 
-  const toProductPage = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div
       className={styles.products}
       onClick={(): void => {
-        if (key) toProductPage(PAGES.product.route + slug, { state: key }); //@ToDo - поменять потом пути на страницу продукта
+        if (key) navigate(PAGES.product.route + slug, { state: key }); //@ToDo - поменять потом пути на страницу продукта
       }}>
       <img
         src={data.masterVariant.images?.[0].url}
