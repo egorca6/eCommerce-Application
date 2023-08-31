@@ -33,7 +33,7 @@ export function FilterByPrice(): JSX.Element {
   //   console.log('сортировка = ', data.body.results);
   // });
 
-  FilterProducts(FilterByPrice, 1, 6).then(data => {
+  FilterProducts(1, 6, FilterByPrice).then(data => {
     console.log('Фильтр = ', data.body.results);
   });
   const partialSearchQuery = 'cosm';

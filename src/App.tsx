@@ -15,11 +15,8 @@ import { PAGES } from './constants/pages';
 import { ProductPage } from './pages/ProductPage/ProductPage';
 import { UserProfilePage } from './pages/UserProfilePage/UserProfilePage';
 import { LayoutCatalog } from './Layouts/LayoutCatalog';
-import { CatalogMain } from './pages/CatalogPage/CatalogMain';
-import { AccessoriesPage } from './pages/CatalogPage/Accessories';
-import { CosmeticsPage } from './pages/CatalogPage/Cosmetics';
-import { TextilesPage } from './pages/CatalogPage/Textiles';
-import { SetsPage } from './pages/CatalogPage/Sets';
+import { Catalog } from './pages/CatalogPage/Catalog';
+import { ID_PRODUCT_CATEGORIES } from './constants/api';
 
 function App(): JSX.Element {
   const [isAuth, setIsAuth] = useState(false);
@@ -44,14 +41,23 @@ function App(): JSX.Element {
               path={PAGES.catalog.route}
               element={<LayoutCatalog />}
               errorElement={<ErrorPage />}>
-              <Route index element={<CatalogMain />} />
+              <Route index element={<Catalog filter={''} />} />
               <Route
                 path={PAGES.accessories.route}
-                element={<AccessoriesPage />}
+                element={<Catalog filter={ID_PRODUCT_CATEGORIES.accessories} />}
               />
-              <Route path={PAGES.cosmetics.route} element={<CosmeticsPage />} />
-              <Route path={PAGES.textiles.route} element={<TextilesPage />} />
-              <Route path={PAGES.sets.route} element={<SetsPage />} />
+              <Route
+                path={PAGES.cosmetics.route}
+                element={<Catalog filter={ID_PRODUCT_CATEGORIES.cosmetics} />}
+              />
+              <Route
+                path={PAGES.textiles.route}
+                element={<Catalog filter={ID_PRODUCT_CATEGORIES.textiles} />}
+              />
+              <Route
+                path={PAGES.sets.route}
+                element={<Catalog filter={ID_PRODUCT_CATEGORIES.sets} />}
+              />
             </Route>
 
             <Route

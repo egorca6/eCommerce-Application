@@ -52,9 +52,9 @@ export const getProductById = (
 };
 
 export const FilterProducts = (
-  filterStr: string,
-  page?: number,
-  productInPage?: number,
+  page: number,
+  productInPage: number,
+  filterStr?: string,
 ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
   return apiRoot
     .productProjections()

@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FilterProducts } from '../../api/Client';
 import { ProductItem } from '../../components/Product';
-import { ID_PRODUCT_CATEGORIES } from '../../constants/api';
 import { PRODUCTS_IN_PAGE } from '../../constants/common';
 import { getPageCount, getPagesArray } from '../../utils/product';
-import styles from './Sets.module.scss';
+import styles from './Catalog.module.scss';
 
-export const TextilesPage = (): JSX.Element => {
+export const Catalog = ({ ...filter }): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,12 +25,22 @@ export const TextilesPage = (): JSX.Element => {
   }, [currentLocation]);
 
   useEffect(() => {
+    //ну и вот эту функцию надо будет тоже за useEffect вынести,
+    const getCategoryID = (): string | undefined => {
+      const idCategory = filter.filter;
+      if (idCategory.length > 0) {
+        return idCategory;
+      }
+      return undefined;
+    };
+
     const getCategoryProduct = async (): Promise<void> => {
       try {
+        // название функции поменять на filterProducts
         const products = await FilterProducts(
-          ID_PRODUCT_CATEGORIES.textiles,
           startIndexProduct,
           PRODUCTS_IN_PAGE,
+          getCategoryID(),
         );
         const totalCount = products.body.total;
         if (totalCount)
@@ -42,7 +51,7 @@ export const TextilesPage = (): JSX.Element => {
       }
     };
     getCategoryProduct();
-  }, [startIndexProduct]);
+  }, [startIndexProduct, filter.filter]); // filter.filter это надо будет выпилить, подумать как только
 
   return (
     <>
