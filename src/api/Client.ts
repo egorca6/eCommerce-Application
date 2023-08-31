@@ -72,7 +72,6 @@ export const FilterProducts = (
 
 export const SortProducts = (
   sorted: string[] | string,
-  filterStr?: string,
   page?: number,
   productInPage?: number,
 ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
@@ -81,8 +80,8 @@ export const SortProducts = (
     .search()
     .get({
       queryArgs: {
-        limit: 30,
-        // offset: page,
+        limit: productInPage,
+        offset: page,
         sort: sorted,
         markMatchingVariants: true,
       },
@@ -92,7 +91,6 @@ export const SortProducts = (
 
 export const searchProducts = (
   searchText: string,
-  filterStr?: string,
   page?: number,
   productInPage?: number,
 ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
@@ -101,7 +99,7 @@ export const searchProducts = (
     .search()
     .get({
       queryArgs: {
-        limit: 20,
+        limit: productInPage,
         'text.en-US': searchText,
         // offset: page,
         markMatchingVariants: true,

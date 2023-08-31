@@ -6,7 +6,7 @@ import { FilterProducts } from '../../api/Client';
 import { ProductItem } from '../../components/Product';
 import { PRODUCTS_IN_PAGE } from '../../constants/common';
 import { getPageCount, getPagesArray } from '../../utils/product';
-import styles from './Catalog.module.scss';
+import styles from './CatalogMain.module.scss';
 
 export const Catalog = ({ ...options }): JSX.Element => {
   const navigate = useNavigate();
@@ -29,7 +29,6 @@ export const Catalog = ({ ...options }): JSX.Element => {
   useEffect(() => {
     const getCategoryProduct = async (): Promise<void> => {
       try {
-        // название функции поменять на filterProducts
         const products = await FilterProducts(
           startIndexProduct,
           PRODUCTS_IN_PAGE,
