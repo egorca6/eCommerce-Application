@@ -8,9 +8,11 @@ import { PRODUCTS_IN_PAGE } from '../../constants/common';
 import { getPageCount, getPagesArray } from '../../utils/product';
 import styles from './Catalog.module.scss';
 
-export const Catalog = ({ ...filter }): JSX.Element => {
+export const Catalog = ({ ...options }): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
+  const idCategory = options.options.id;
+  console.log(idCategory);
 
   const currentLocation = parseInt(location.search?.split('=')[1]) || 1;
 
@@ -25,22 +27,13 @@ export const Catalog = ({ ...filter }): JSX.Element => {
   }, [currentLocation]);
 
   useEffect(() => {
-    //ну и вот эту функцию надо будет тоже за useEffect вынести,
-    const getCategoryID = (): string | undefined => {
-      const idCategory = filter.filter;
-      if (idCategory.length > 0) {
-        return idCategory;
-      }
-      return undefined;
-    };
-
     const getCategoryProduct = async (): Promise<void> => {
       try {
         // название функции поменять на filterProducts
         const products = await FilterProducts(
           startIndexProduct,
           PRODUCTS_IN_PAGE,
-          getCategoryID(),
+          idCategory,
         );
         const totalCount = products.body.total;
         if (totalCount)
@@ -51,7 +44,7 @@ export const Catalog = ({ ...filter }): JSX.Element => {
       }
     };
     getCategoryProduct();
-  }, [startIndexProduct, filter.filter]); // filter.filter это надо будет выпилить, подумать как только
+  }, [startIndexProduct, idCategory]);
 
   return (
     <>

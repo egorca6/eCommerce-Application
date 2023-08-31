@@ -41,22 +41,32 @@ function App(): JSX.Element {
               path={PAGES.catalog.route}
               element={<LayoutCatalog />}
               errorElement={<ErrorPage />}>
-              <Route index element={<Catalog filter={''} />} />
+              <Route index element={<Catalog options={{ id: undefined }} />} />
               <Route
                 path={PAGES.accessories.route}
-                element={<Catalog filter={ID_PRODUCT_CATEGORIES.accessories} />}
+                element={
+                  <Catalog
+                    options={{ id: ID_PRODUCT_CATEGORIES.accessories }}
+                  />
+                }
               />
               <Route
                 path={PAGES.cosmetics.route}
-                element={<Catalog filter={ID_PRODUCT_CATEGORIES.cosmetics} />}
+                element={
+                  <Catalog options={{ id: ID_PRODUCT_CATEGORIES.cosmetics }} />
+                }
               />
               <Route
                 path={PAGES.textiles.route}
-                element={<Catalog filter={ID_PRODUCT_CATEGORIES.textiles} />}
+                element={
+                  <Catalog options={{ id: ID_PRODUCT_CATEGORIES.textiles }} />
+                }
               />
               <Route
                 path={PAGES.sets.route}
-                element={<Catalog filter={ID_PRODUCT_CATEGORIES.sets} />}
+                element={
+                  <Catalog options={{ id: ID_PRODUCT_CATEGORIES.sets }} />
+                }
               />
             </Route>
 
