@@ -6,7 +6,7 @@ import { FilterProducts } from '../../api/Client';
 import { ProductItem } from '../../components/Product';
 import { PRODUCTS_IN_PAGE } from '../../constants/common';
 import { getPageCount, getPagesArray } from '../../utils/product';
-import styles from './CatalogMain.module.scss';
+import styles from './Catalog.module.scss';
 
 export const Catalog = ({ ...options }): JSX.Element => {
   const navigate = useNavigate();

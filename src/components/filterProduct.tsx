@@ -54,9 +54,9 @@ export function FilterByPrice(): JSX.Element {
         priceRange[0] * 100
       } to ${priceRange[1] * 100})`;
       const newProducts = await FilterProducts(
-        FilterByPrice,
         startIndexProduct,
         PRODUCTS_IN_PAGE,
+        FilterByPrice,
       );
       setProducts(newProducts.body.results);
     } catch (err) {
