@@ -17,6 +17,9 @@ import { UserProfilePage } from './pages/UserProfilePage/UserProfilePage';
 import { LayoutCatalog } from './Layouts/LayoutCatalog';
 import { CatalogMain } from './pages/CatalogPage/CatalogMain';
 import { AccessoriesPage } from './pages/CatalogPage/Accessories';
+import { CosmeticsPage } from './pages/CatalogPage/Cosmetics';
+import { TextilesPage } from './pages/CatalogPage/Textiles';
+import { SetsPage } from './pages/CatalogPage/Sets';
 
 function App(): JSX.Element {
   const [isAuth, setIsAuth] = useState(false);
@@ -46,15 +49,9 @@ function App(): JSX.Element {
                 path={PAGES.accessories.route}
                 element={<AccessoriesPage />}
               />
-              <Route
-                path={PAGES.cosmetics.route}
-                element={<RegistrationPage />}
-              />
-              <Route
-                path={PAGES.textiles.route}
-                element={<UserProfilePage />}
-              />
-              <Route path={PAGES.sets.route} element={<UserProfilePage />} />
+              <Route path={PAGES.cosmetics.route} element={<CosmeticsPage />} />
+              <Route path={PAGES.textiles.route} element={<TextilesPage />} />
+              <Route path={PAGES.sets.route} element={<SetsPage />} />
             </Route>
 
             <Route
