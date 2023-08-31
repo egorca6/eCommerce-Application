@@ -1,0 +1,31 @@
+@import '../../styles/global';
+
+.content {
+  display: grid;
+  padding: 30px 0;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  column-gap: 50px;
+  row-gap: 20px;
+  border-top: 3px solid $color-brown;
+  @include media-tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include media-mobile {
+    padding: 10%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  & .paginationButton {
+    margin: 10px;
+  }
+  & .paginationButtonActive {
+    border: solid 2px $color-red;
+    margin: 10px;
+  }
+}
