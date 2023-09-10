@@ -5,7 +5,7 @@ import { covertPrice } from '../utils/product';
 import styles from './Product.module.scss';
 import {
   asyncAddItemCart,
-  asynctUpdateCartProductId,
+  asyncUpdateCartProductId,
   cartUserDraft,
   useIsItemInCart,
 } from './Cart/useItemCart';
@@ -43,7 +43,7 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
     <div>
       <div
         className={styles.products}
-        onClick={(): void => {
+        onClick={(event): void => {
           if (key)
             navigate(PAGES.catalog.route + `${categories}/` + slug, {
               state: key,
@@ -68,39 +68,37 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
             </div>
           </div>
 
-          <i className={`${styles.icon} pi pi-cart-plus`} />
+          <i
+            className={
+              checked
+                ? `${styles.icon} pi pi-cart-plus`
+                : `${styles.icon} ${styles.active} pi pi-check`
+            }
+            onClick={(e): void => {
+              e.stopPropagation();
+              if (!checked) {
+                setChecked(true);
+                count.errors =
+                  'The product was successfully removed from the cart';
+                asyncUpdateCartProductId(data.id, callback);
+              } else {
+                setChecked(false);
+                if (count.cartID) {
+                  count.errors = 'The product was successfully add in the cart';
+                  callback(true, 0);
+                  asyncAddItemCart(data.id);
+                } else {
+                  count.errors = 'The product was successfully add in the cart';
+                  callback(true, 0);
+                  cartUserDraft(data.id);
+                }
+              }
+            }}
+          />
         </div>
 
         <div className={styles.name}>{data.name?.['en-US']}</div>
         <p>{description}...</p>
-      </div>
-      <div className="card flex justify-content-center">
-        <ToggleButton
-          onLabel="In Cart"
-          offLabel="Out Cart"
-          onIcon="pi pi-check"
-          offIcon="pi pi-times"
-          checked={checked}
-          onChange={(e: ToggleButtonChangeEvent): void => {
-            setChecked(e.value);
-            if (e.value) {
-              count.errors =
-                'The product was successfully removed from the cart';
-              asynctUpdateCartProductId(data.id, callback);
-            } else {
-              if (count.cartID) {
-                count.errors = 'The product was successfully add in the cart';
-                callback(true, 0);
-                asyncAddItemCart(data.id);
-              } else {
-                count.errors = 'The product was successfully add in the cart';
-                callback(true, 0);
-                cartUserDraft(data.id);
-              }
-            }
-          }}
-          className="mt-3 mb-1 border-round-lg"
-        />
       </div>
       <Dialog
         className={styles.module__window}

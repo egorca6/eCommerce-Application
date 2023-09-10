@@ -212,7 +212,6 @@ export const Catalog = ({ ...options }): JSX.Element => {
           }}
           className="w-8rem"
         />
-        {/* <ScrollPanel style={{ width: '100%', height: '500px' }}> */}
         <div className={styles.main}>
           <BreadCrumb model={items} home={home} className={styles.breadcrumb} />
           <div className={styles.content}>
@@ -237,7 +236,6 @@ export const Catalog = ({ ...options }): JSX.Element => {
             )}
           </div>
         </div>
-        {/* </ScrollPanel> */}
       </div>
     </div>
   );

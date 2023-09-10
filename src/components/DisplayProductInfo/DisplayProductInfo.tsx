@@ -14,8 +14,7 @@ import styles from './DisplayProductInfo.module.scss';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
 import {
   asyncAddItemCart,
-  asynctUpdateCartProductId,
-  asynctUpdateItemCart,
+  asyncUpdateCartProductId,
   cartUserDraft,
   useIsItemInCart,
   // useUpdateItemCart,
@@ -183,7 +182,7 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
                   count.errors =
                     'The product was successfully removed from the cart';
                   console.log(count.productId);
-                  asynctUpdateCartProductId(count.productItemId, callback);
+                  asyncUpdateCartProductId(count.productItemId, callback);
                 } else {
                   if (count.cartID) {
                     asyncAddItemCart(count.productItemId);
