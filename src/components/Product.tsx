@@ -11,7 +11,6 @@ import {
 } from './Cart/useItemCart';
 import { count } from '../constants/registratForm';
 import { useEffect, useState } from 'react';
-import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
 import { Dialog } from 'primereact/dialog';
 
 export const ProductItem = (data: ProductProjection): JSX.Element => {
