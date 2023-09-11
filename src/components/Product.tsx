@@ -10,8 +10,15 @@ import {
   useIsItemInCart,
 } from './Cart/useItemCart';
 import { count } from '../constants/registratForm';
-import { useEffect, useState } from 'react';
-import { Dialog } from 'primereact/dialog';
+import { useEffect, useRef, useState } from 'react';
+import {
+  LIFE_TIME_MESSAGE,
+  PRODUCT_ADD,
+  PRODUCT_REMOVE,
+  SUCCESS_MESSAGE,
+  WARN_MESSAGE,
+} from '../constants/product';
+import { Toast } from 'primereact/toast';
 
 export const ProductItem = (data: ProductProjection): JSX.Element => {
   const price = data.masterVariant.prices?.[0].value.centAmount;
@@ -38,11 +45,24 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
     setVisibleError(true);
   };
   //==========
+
+  const messagePopUp = useRef<Toast>(null);
+
+  const popUpMessage = (message: string): void => {
+    messagePopUp.current?.show({
+      severity: checked ? SUCCESS_MESSAGE : WARN_MESSAGE,
+      detail: message,
+      life: LIFE_TIME_MESSAGE,
+    });
+  };
+
   return (
-    <div>
+    <>
+      <Toast ref={messagePopUp} />
+
       <div
         className={styles.products}
-        onClick={(event): void => {
+        onClick={(): void => {
           if (key)
             navigate(PAGES.catalog.route + `${categories}/` + slug, {
               state: key,
@@ -77,11 +97,13 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
               e.stopPropagation();
               if (!checked) {
                 setChecked(true);
+                popUpMessage(PRODUCT_REMOVE);
                 count.errors =
                   'The product was successfully removed from the cart';
                 asyncUpdateCartProductId(data.id, callback);
               } else {
                 setChecked(false);
+                popUpMessage(PRODUCT_ADD);
                 if (count.cartID) {
                   count.errors = 'The product was successfully add in the cart';
                   callback(true, 0);
@@ -95,21 +117,9 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
             }}
           />
         </div>
-
         <div className={styles.name}>{data.name?.['en-US']}</div>
         <p>{description}...</p>
       </div>
-      <Dialog
-        className={styles.module__window}
-        style={{ maxWidth: '340px' }}
-        header="Notification"
-        visible={visibleError}
-        onHide={(): void => {
-          setVisibleError(false);
-          count.errors = '';
-        }}>
-        <p>{count.errors}</p>
-      </Dialog>
-    </div>
+    </>
   );
 };
