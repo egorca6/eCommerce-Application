@@ -12,7 +12,7 @@ import {
   REG_EXP_POST_CODE,
 } from '../../../constants/regEx';
 
-const isOldEnough = (value: Date | string): boolean => {
+export const isOldEnough = (value: Date | string): boolean => {
   const currentDate = new Date();
   const thirteenYearsAgo = new Date();
   thirteenYearsAgo.setFullYear(currentDate.getFullYear() - 13);
