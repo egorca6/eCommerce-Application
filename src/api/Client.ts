@@ -1,15 +1,20 @@
-import { ctpClient } from './BuildClient';
+import { ctpClientAnonym, ctpClient, ctpClientCustom } from './BuildClient';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
-import { anonymousClient } from './BuildAnonymousFlow';
+const projectKey = process.env.REACT_APP_CTP_PROJECT_KEY || '';
 
-// Create apiRoot from the imported ClientBuilder and include your Project key
 export const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey: process.env.REACT_APP_CTP_PROJECT_KEY || '',
+  projectKey: projectKey,
 });
 
 export const apiRootAnonymous = createApiBuilderFromCtpClient(
-  anonymousClient,
+  ctpClientAnonym,
 ).withProjectKey({
-  projectKey: process.env.REACT_APP_CTP_PROJECT_KEY || '',
+  projectKey: projectKey,
+});
+
+export const apiRootCustom = createApiBuilderFromCtpClient(
+  ctpClientCustom,
+).withProjectKey({
+  projectKey: projectKey,
 });

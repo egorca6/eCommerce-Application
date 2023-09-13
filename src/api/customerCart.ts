@@ -3,12 +3,10 @@ import {
   Cart,
   CartPagedQueryResponse,
   CartUpdateAction,
-  createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
 import { ByProjectKeyShoppingListsRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/shopping-lists/by-project-key-shopping-lists-request-builder';
-import { ClientBuilder } from '@commercetools/sdk-client-v2';
 import { count } from '../constants/registratForm';
-import { apiRoot, apiRootAnonymous } from './Client';
+import { apiRoot, apiRootAnonymous, apiRootCustom } from './Client';
 
 export const shopList = (): ByProjectKeyShoppingListsRequestBuilder => {
   return apiRoot.shoppingLists();
@@ -90,30 +88,7 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
       })
       .execute();
   } else {
-    const customClient = new ClientBuilder()
-      .withPasswordFlow({
-        host: 'https://auth.europe-west1.gcp.commercetools.com',
-        projectKey: 'bon747jour',
-        credentials: {
-          clientId: process.env.REACT_APP_CTP_CLIENT_ID || '',
-          clientSecret: process.env.REACT_APP_CTP_CLIENT_SECRET || '',
-          user: {
-            username: count.email,
-            password: count.password,
-          },
-        },
-        scopes: [`manage_project:${'bon747jour'}`],
-        fetch,
-      })
-      .withHttpMiddleware({
-        host: 'https://api.europe-west1.gcp.commercetools.com',
-        fetch,
-      })
-      .build();
-    return createApiBuilderFromCtpClient(customClient)
-      .withProjectKey({
-        projectKey: 'bon747jour',
-      })
+    return apiRootCustom
       .me()
       .carts()
       .post({
