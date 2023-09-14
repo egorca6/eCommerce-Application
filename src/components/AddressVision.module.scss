@@ -1,0 +1,27 @@
+@import '../styles/global';
+
+.block {
+  margin: 0.3rem;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  background-color: white;
+  border-color: $color-brown;
+  border: 0.05vw solid $color-brown;
+  border-radius: 8px;
+}
+
+.span {
+  color: $color-red;
+  font-weight: 100;
+  margin: 0.1rem 1rem;
+}
+
+.paragraph {
+  margin: 0.3rem;
+}
+
+.address {
+  margin-left: 1rem;
+  color: $color-red;
+  font-size: 1.2rem;
+}

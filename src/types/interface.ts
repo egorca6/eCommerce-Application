@@ -32,7 +32,7 @@ export interface IRegistrationForm {
   address: IAddresses[];
 }
 
-export interface InewCustomerData {
+export interface INewCustomerData {
   email: string;
   password: string;
   firstName: string;
@@ -43,7 +43,7 @@ export interface InewCustomerData {
   addresses: IAddresses[];
 }
 
-export interface IpropsAddres {
+export interface IPropsAddress {
   value: IAddress;
   toDo: string;
   closeForm: (errorMessage: string) => void;
@@ -61,7 +61,7 @@ export interface INewPassword {
   passwordNew: string;
 }
 
-export interface IcartItems {
+export interface ICartItems {
   name: string;
   id: string;
   price: number;
@@ -70,7 +70,7 @@ export interface IcartItems {
   version: number;
 }
 
-export interface IpropsItems {
-  value: IcartItems;
+export interface IPropsItems {
+  value: ICartItems;
   editDataCart: (delet: boolean, sumaItem: number) => void;
 }

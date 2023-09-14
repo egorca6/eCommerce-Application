@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserDataForm from '../../components/Forms/UserDataForm';
+import { UserDataForm } from '../../components/Forms/UserDataForm';
 import { PAGES } from '../../constants/pages';
 import { count } from '../../constants/registratForm';
 import styles from './UserProfilePage.module.scss';
@@ -13,16 +13,13 @@ export const UserProfilePage = (): JSX.Element => {
     if (!count.ID) {
       toSignInPage(PAGES.signin.route);
     }
-  }, []);
+  }, [toSignInPage]);
 
   return (
     <div>
       {count.ID ? (
         <div className={styles.page}>
-          <h1>Profile</h1>
-          <div className="registration__page content">
-            <UserDataForm />
-          </div>
+          <UserDataForm />
         </div>
       ) : (
         <></>

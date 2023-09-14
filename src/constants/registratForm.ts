@@ -2,7 +2,7 @@ import {
   ICountriesData,
   IAddresses,
   IAddress,
-  InewCustomerData,
+  INewCustomerData,
   IUserData,
 } from '../types/interface';
 
@@ -63,7 +63,7 @@ export let newAddres: IAddress[] = [
   },
 ];
 
-export const newCustomerData: InewCustomerData = {
+export const newCustomerData: INewCustomerData = {
   email: '',
   password: '',
   firstName: '',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IpropsItems } from '../../types/interface';
+import { IPropsItems } from '../../types/interface';
 import styles from './CartForm.module.scss';
 import {
   InputNumber,
@@ -9,7 +9,7 @@ import { asyncUpdateItemCart, useStartCart } from './useItemCart';
 import { Button } from 'primereact/button';
 import { count } from '../../constants/registratForm';
 
-export default function ItemsVision(props: IpropsItems): JSX.Element {
+export default function ItemsVision(props: IPropsItems): JSX.Element {
   const [value, setValue] = useState(props.value.count);
   const startCart = useStartCart();
   useEffect(() => {

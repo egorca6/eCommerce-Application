@@ -1,11 +1,12 @@
 import { getCategoryProducts } from '../api/products';
+import { CURRENT_CURRENCY } from '../constants/api';
 import { CENTS_PER_EURO, POPULAR_PRODUCTS_IN_PAGE } from '../constants/common';
 import { CategoryProduct } from '../types/types';
 
 export const covertPrice = (price: number): string => {
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
-    currency: 'EUR',
+    currency: CURRENT_CURRENCY,
   }).format(price / CENTS_PER_EURO);
 };
 

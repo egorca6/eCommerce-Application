@@ -6,7 +6,7 @@ import { Button } from 'primereact/button';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import {
   ICountriesData,
-  IpropsAddres,
+  IPropsAddress,
   IAddresses,
 } from '../../types/interface';
 import { countriesData } from '../../constants/registratForm';
@@ -15,7 +15,7 @@ import { ErrorMessage } from './ErrorMessage';
 import styles from './AddressForm.module.scss';
 import { editAddressID } from '../../api/requestAddress';
 
-export const AddressForm = (props: IpropsAddres): JSX.Element => {
+export const AddressForm = (props: IPropsAddress): JSX.Element => {
   const form = useForm({
     mode: 'onBlur',
     resolver: yupResolver(addressSchema),

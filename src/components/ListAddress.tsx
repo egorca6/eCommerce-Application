@@ -1,5 +1,4 @@
 import { Button } from 'primereact/button';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { Dialog } from 'primereact/dialog';
 import { RadioButton } from 'primereact/radiobutton';
 import { useState } from 'react';
@@ -7,15 +6,16 @@ import { IAddress } from '../types/interface';
 import { newAddres, count } from '../constants/registratForm';
 import { deledeAddressID, setDefault } from '../api/requestAddress';
 import { getCustomerID } from '../api/customers';
-import AddresVision from './AddresVision';
-import AddressForm from './Forms/AddressForm';
-import styles from './Forms/AddressForm.module.scss';
+import { AddressVision } from './AddressVision';
+import { AddressForm } from './Forms/AddressForm';
+import styles from './ListAddress.module.scss';
 import { updateUserData } from './Forms/utils/updateUserData';
 
 let switchToDo = '';
 let messageUser = '';
 let addressForForm: IAddress = newAddres[0];
-export default function ListAddress(): JSX.Element {
+
+export function ListAddress(): JSX.Element {
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleError, setVisibleError] = useState<boolean>(false);
   const [visibleAddresForm, setVisibleAddresForm] = useState(false);
@@ -34,10 +34,8 @@ export default function ListAddress(): JSX.Element {
       if (switchToDo === 'Add' || switchToDo === 'Edit') {
         setVisibleAddresForm(false);
       } else {
-        // if (switchToDo === 'DefoltStart') {
         setDefoltShip(count.defaultShipping);
         setDefoltBill(count.defaultBilling);
-        // }
       }
       switchToDo = '';
       setAdress([...newAddres]);
@@ -57,36 +55,24 @@ export default function ListAddress(): JSX.Element {
 
   return (
     <div className={styles.registration_data_name}>
-      <div
-        className="card"
-        style={{
-          minWidth: '274px',
-          margin: '5px',
-          padding: '0.5rem',
-          border: '0.05vw',
-          borderStyle: 'solid',
-          borderColor: '$color-brown',
-          borderRadius: '8px',
-        }}>
-        <ScrollPanel style={{ width: '100%', height: '270px' }}>
-          <div className="mb-5">
-            {allAdress.map(adress => (
-              <div className={styles.list_address} key={adress.id}>
-                <AddresVision
-                  value={{
-                    country: adress.country,
-                    city: adress.city,
-                    postalCode: adress.postalCode,
-                    streetName: adress.streetName,
-                    id: adress.id,
-                  }}
-                  toDo={'readOnly'}
-                  closeForm={renderForm}
-                />
-              </div>
-            ))}
-          </div>
-        </ScrollPanel>
+      <div className={styles.card}>
+        <div className="mb-5">
+          {allAdress.map(adress => (
+            <div className={styles.list_address} key={adress.id}>
+              <AddressVision
+                value={{
+                  country: adress.country,
+                  city: adress.city,
+                  postalCode: adress.postalCode,
+                  streetName: adress.streetName,
+                  id: adress.id,
+                }}
+                toDo={'readOnly'}
+                closeForm={renderForm}
+              />
+            </div>
+          ))}
+        </div>
       </div>
       <Dialog
         header="My addresses"
@@ -103,7 +89,7 @@ export default function ListAddress(): JSX.Element {
         <div className="mb-5">
           {allAdress.map((adress, i) => (
             <div className={styles.list_address} key={adress.id}>
-              <AddresVision
+              <AddressVision
                 value={{
                   country: adress.country,
                   city: adress.city,

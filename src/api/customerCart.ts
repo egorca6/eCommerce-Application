@@ -4,13 +4,9 @@ import {
   CartPagedQueryResponse,
   CartUpdateAction,
 } from '@commercetools/platform-sdk';
-import { ByProjectKeyShoppingListsRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/shopping-lists/by-project-key-shopping-lists-request-builder';
+import { CURRENT_CURRENCY } from '../constants/api';
 import { count } from '../constants/registratForm';
 import { apiRoot, apiRootAnonymous, apiRootCustom } from './Client';
-
-export const shopList = (): ByProjectKeyShoppingListsRequestBuilder => {
-  return apiRoot.shoppingLists();
-};
 
 export const cartID = (cartID: string): Promise<ClientResponse<Cart>> => {
   return apiRoot.carts().withId({ ID: cartID }).get().execute();
@@ -29,7 +25,7 @@ export const cartDeleteID = (
     .withId({ ID: cartID })
     .delete({
       queryArgs: {
-        key: 'bon47',
+        key: 'bon747jour',
         version: version,
       },
     })
@@ -83,7 +79,7 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
       .carts()
       .post({
         body: {
-          currency: 'EUR',
+          currency: CURRENT_CURRENCY,
         },
       })
       .execute();
@@ -93,7 +89,7 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
       .carts()
       .post({
         body: {
-          currency: 'EUR',
+          currency: CURRENT_CURRENCY,
         },
       })
       .execute();

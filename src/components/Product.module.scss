@@ -37,12 +37,24 @@
   padding: 5px 5px;
   text-decoration: line-through;
   order: 2;
+  @media (max-width: 890px) {
+    font-size: 18px;
+  }
+  @include media-tablet {
+    font-size: 20px;
+  }
 }
 
 .price {
   color: $color-red;
   font-size: 24px;
   padding: 5px 5px;
+  @media (max-width: 890px) {
+    font-size: 18px;
+  }
+  @include media-tablet {
+    font-size: 24px;
+  }
 }
 
 .discountPrice {
@@ -50,6 +62,12 @@
   font-size: 24px;
   padding: 5px 5px;
   order: 1;
+  @media (max-width: 890px) {
+    font-size: 18px;
+  }
+  @include media-tablet {
+    font-size: 24px;
+  }
 }
 
 .noDiscount {

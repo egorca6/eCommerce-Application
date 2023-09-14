@@ -78,4 +78,3 @@ export const NewPasswordForm = (props: {
     </div>
   );
 };
-export default NewPasswordForm;

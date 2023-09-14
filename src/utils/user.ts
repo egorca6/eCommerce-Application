@@ -26,6 +26,6 @@ export const userAge = (data: IRegistrationForm): string => {
   const userAge = new Date(data.dateOfBirth);
   const userYear = userAge.getFullYear();
   const userMonth = userAge.getMonth() + 1;
-  const userDate = userAge.getDate() + 1;
+  const userDate = userAge.getDate();
   return `${userYear}-${userMonth}-${userDate}`;
 };

@@ -104,7 +104,7 @@ export const newUserPassword = (
       if (error.code === 400) {
         errorMessage = `ERROR: ${error.message}`;
       } else {
-        errorMessage = `ERROR: ${error.message}  Should try again later`;
+        errorMessage = `ERROR: ${error.message} Should try again later`;
       }
     })
     .finally(() => {
