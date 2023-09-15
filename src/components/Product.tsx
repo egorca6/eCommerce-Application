@@ -31,25 +31,22 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
   const description = data.description?.['en-US'].slice(0, 50);
 
   const navigate = useNavigate();
-  //=========
-  const [checked, setChecked] = useState<boolean>(false);
+
+  const [hasProductInCart, setProductInCart] = useState<boolean>(false);
   let keyProduct = '';
   const id = key;
   if (id) keyProduct = id;
   const cartIsItem = useIsItemInCart(keyProduct);
   useEffect(() => {
-    setChecked(cartIsItem.IsItem);
+    setProductInCart(cartIsItem.IsItem);
   }, [cartIsItem.IsItem]);
 
-  // так понимаю эту функцию мы можем удалить, setVisibleError(true) вызывать напрямую
-  // в на месте вызова callback
   const callback = (): void => {};
 
   const messagePopUp = useRef<Toast>(null);
-
   const popUpMessage = (message: string): void => {
     messagePopUp.current?.show({
-      severity: checked ? SUCCESS_MESSAGE : WARN_MESSAGE,
+      severity: hasProductInCart ? SUCCESS_MESSAGE : WARN_MESSAGE,
       detail: message,
       life: LIFE_TIME_MESSAGE,
     });
@@ -87,19 +84,18 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
 
           <i
             className={
-              checked
+              hasProductInCart
                 ? `${styles.icon} pi pi-cart-plus`
                 : `${styles.icon} ${styles.active} pi pi-check`
             }
             onClick={(e): void => {
               e.stopPropagation();
-              if (!checked) {
-                setChecked(true);
+              if (!hasProductInCart) {
+                setProductInCart(true);
                 popUpMessage(PRODUCT_REMOVE);
-                // функцию переделать посмотреть, нужен ли нам тут callback
                 asyncUpdateCartProductId(data.id, callback);
               } else {
-                setChecked(false);
+                setProductInCart(false);
                 popUpMessage(PRODUCT_ADD);
                 if (count.cartID) {
                   asyncAddItemCart(data.id);

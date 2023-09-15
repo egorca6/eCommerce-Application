@@ -10,7 +10,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { getProducts } from '../../api/products';
 import { ProductItem } from '../../components/Product';
 import { PRODUCTS_IN_PAGE } from '../../constants/common';
-import { PAGES } from '../../constants/pages';
+import { useBreadCrumbs } from '../../hooks/useBreadCrumbs';
 import { FilterParams } from '../../types/types';
 import { getPageCount, getPagesArray } from '../../utils/product';
 import styles from './Catalog.module.scss';
@@ -95,19 +95,8 @@ export const Catalog = ({ ...options }): JSX.Element => {
     setResetFilters(true);
   };
 
-  const items: MenuItem[] = [];
-  const home: MenuItem = { icon: 'pi pi-home', url: '/' };
-  const locationPage = location.search?.split('=')[1];
-
-  location.pathname.split('/').forEach(path => {
-    if (path === PAGES.catalog.key) {
-      items.push({ label: `${path}`, url: `/${path}` });
-    }
-    if (path.length && path !== PAGES.catalog.key) {
-      items.push({ label: `${path}`, url: `${path}` });
-    }
-  });
-  if (locationPage) items.push({ label: `page ${locationPage}` });
+  const breadCrumbItems = useBreadCrumbs(location);
+  const breadCrumbHome: MenuItem = { icon: 'pi pi-home', url: '/' };
 
   return (
     <div className={styles.content_main}>
@@ -132,7 +121,6 @@ export const Catalog = ({ ...options }): JSX.Element => {
         </span>
         <div className="card flex justify-content-start">
           <div className="w-14rem">
-            {/* <span>Price</span> */}
             <div className="input-container">
               <p style={{ margin: '0px' }}>Price From</p>
               <InputText
@@ -179,7 +167,7 @@ export const Catalog = ({ ...options }): JSX.Element => {
         </div>
       </div>
 
-      <div className="card">
+      <div>
         <ToggleButton
           checked={checkedPrice}
           onLabel="Price"
@@ -196,6 +184,7 @@ export const Catalog = ({ ...options }): JSX.Element => {
           }}
           className="w-8rem"
         />
+
         <ToggleButton
           checked={checkedName}
           onLabel="Name"
@@ -212,8 +201,13 @@ export const Catalog = ({ ...options }): JSX.Element => {
           }}
           className="w-8rem"
         />
+
         <div className={styles.main}>
-          <BreadCrumb model={items} home={home} className={styles.breadcrumb} />
+          <BreadCrumb
+            model={breadCrumbItems}
+            home={breadCrumbHome}
+            className={styles.breadcrumb}
+          />
           <div className={styles.content}>
             {products?.map(data => <ProductItem {...data} key={data.id} />)}
           </div>
