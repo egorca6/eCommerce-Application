@@ -2,13 +2,12 @@ import { Button } from 'primereact/button';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { useEffect, useRef, useState } from 'react';
 import { count } from '../../constants/registratForm';
-import { cartAll, cartDeleteID } from '../../api/customerCart';
-import styles from './CartForm.module.scss';
+import styles from './CartEmpty.module.scss';
 import { LineItem } from '@commercetools/platform-sdk';
 import { useCartID } from './useCart';
 import ItemsVision from './ItemsVision';
 import { FIRST_INDEX } from '../../constants/common';
-import CartEmpty from './CartEmpty';
+import { CartEmpty } from './CartEmpty';
 import { asyncDeleteAllProductForCartID } from './useItemCart';
 import { ConfirmPopup } from 'primereact/confirmpopup';
 import { Toast } from 'primereact/toast';
@@ -72,80 +71,76 @@ export default function CartList(props: { onOffForm: object }): JSX.Element {
   };
   return (
     <div className={styles.list_cart}>
-      <div className={styles.cart_middle} style={visibleCartList}>
-        <div className="card">
-          {itemCart.response ? (
-            itemCart.response.length ? (
-              <div className={styles.cart_middle_row}>
-                <ScrollPanel className={styles.cart_ScrollPanel}>
-                  <div className="mb-5">
-                    {itemsCart.map(items => (
-                      <div className={styles.list_cart_white} key={items.id}>
-                        <ItemsVision
-                          value={{
-                            name: items.name['en-US'],
-                            id: items.id,
-                            price: items.price.value.centAmount,
-                            count: items.quantity,
-                            version: itemCart.version,
-                            img: items.variant.images
-                              ? items.variant.images?.[FIRST_INDEX].url
-                              : '',
-                          }}
-                          editDataCart={editData}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </ScrollPanel>
-                <div className={styles.list_cart_white}>
-                  <p className={styles.cart_span}>Data Cart</p>
-                  <p className={styles.cart_span}>
-                    Suma:&nbsp;
-                    <span className="cart_span" style={{ color: 'red' }}>
-                      {(sumCart / 100).toFixed(2)}
-                    </span>
-                  </p>
-                  <Toast ref={toast} />
-                  <ConfirmPopup
-                    visible={visible}
-                    onHide={(): void => setVisible(false)}
-                    message="Если выбор меньше чем из трёх, это шантаж!)))"
-                    icon="pi pi-exclamation-triangle"
-                    accept={accept}
-                    reject={reject}
-                  />
-                  <div className="card flex justify-content-center">
-                    <Button
-                      ref={buttonEl}
-                      onClick={(): void => setVisible(true)}
-                      icon="pi pi-check"
-                      label="Delete all product"
+      <div className="card">
+        {itemCart.response ? (
+          itemCart.response.length ? (
+            <div className={styles.cart_middle_row}>
+              <div className="mb-5">
+                {itemsCart.map(items => (
+                  <div className={styles.list_cart_white} key={items.id}>
+                    <ItemsVision
+                      value={{
+                        name: items.name['en-US'],
+                        id: items.id,
+                        price: items.price.value.centAmount,
+                        count: items.quantity,
+                        version: itemCart.version,
+                        img: items.variant.images
+                          ? items.variant.images?.[FIRST_INDEX].url
+                          : '',
+                      }}
+                      editDataCart={editData}
                     />
                   </div>
+                ))}
+              </div>
+              <div className={styles.list_cart_white}>
+                <p className={styles.cart_span}>Data Cart</p>
+                <p className={styles.cart_span}>
+                  Suma:&nbsp;
+                  <span className="cart_span" style={{ color: 'red' }}>
+                    {(sumCart / 100).toFixed(2)}
+                  </span>
+                </p>
+                <Toast ref={toast} />
+                <ConfirmPopup
+                  visible={visible}
+                  onHide={(): void => setVisible(false)}
+                  message="Если выбор меньше чем из трёх, это шантаж!)))"
+                  icon="pi pi-exclamation-triangle"
+                  accept={accept}
+                  reject={reject}
+                />
+                <div className="card flex justify-content-center">
+                  <Button
+                    ref={buttonEl}
+                    onClick={(): void => setVisible(true)}
+                    icon="pi pi-check"
+                    label="Delete all product"
+                  />
                 </div>
               </div>
-            ) : (
-              <CartEmpty />
-            )
+            </div>
           ) : (
             <CartEmpty />
-          )}
-        </div>
-        <Dialog
-          className={styles.module__window}
-          style={{ maxWidth: '340px' }}
-          header="Notification"
-          visible={visibleError}
-          onHide={(): void => {
-            setVisibleError(false);
-            count.errors = '';
-          }}>
-          <p>{count.errors}</p>
-        </Dialog>
+          )
+        ) : (
+          <CartEmpty />
+        )}
       </div>
+      <Dialog
+        className={styles.module__window}
+        style={{ maxWidth: '340px' }}
+        header="Notification"
+        visible={visibleError}
+        onHide={(): void => {
+          setVisibleError(false);
+          count.errors = '';
+        }}>
+        <p>{count.errors}</p>
+      </Dialog>
 
-      <Button
+      {/* <Button
         label="Testing Cart"
         className="mt-3 mb-1"
         onClick={(): void => {
@@ -170,7 +165,7 @@ export default function CartList(props: { onOffForm: object }): JSX.Element {
               .catch(console.error);
           })();
         }}
-      />
+      /> */}
     </div>
   );
 }

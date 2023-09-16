@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IPropsItems } from '../../types/interface';
-import styles from './CartForm.module.scss';
+import styles from './CartEmpty.module.scss';
 import {
   InputNumber,
   InputNumberValueChangeEvent,

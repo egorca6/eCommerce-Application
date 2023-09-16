@@ -44,7 +44,7 @@
   border-radius: 8px;
 }
 
-.cart_emtpy {
+.cart_empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,7 +91,7 @@
 }
 
 .cart_middle_row {
-  display: flex;
+  // display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: start;

@@ -95,3 +95,18 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
       .execute();
   }
 };
+
+export const getProductsInCart = (): Promise<ClientResponse<Cart>> | null => {
+  if (count.switchApiRoot) {
+    return apiRootAnonymous
+      .me()
+      .carts()
+      .post({
+        body: {
+          currency: CURRENT_CURRENCY,
+        },
+      })
+      .execute();
+  }
+  return null;
+};

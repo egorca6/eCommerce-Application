@@ -4,7 +4,13 @@ import { PAGES } from '../constants/pages';
 import { count } from '../constants/registratForm';
 import { logOut } from '../utils/user';
 import { AuthContext } from './authProvider';
+import { Badge } from 'primereact/badge';
 import styles from './Links.module.scss';
+
+const itemsInCart = (): number => {
+  // вот сюда надо подсовывать значения количества товаров...
+  return 5;
+};
 
 export const commonLinks = [
   <NavLink to={PAGES.main.route} key={PAGES.main.key}>
@@ -16,7 +22,12 @@ export const commonLinks = [
     Catalog
   </NavLink>,
   <NavLink to={PAGES.cart.route} key={PAGES.cart.key}>
-    <i className={`pi pi-shopping-cart ${styles.fontSize}`}></i>
+    <i className={`pi pi-shopping-cart ${styles.fontSize}`}>
+      <Badge
+        className={itemsInCart() > 0 ? styles.block : styles.none}
+        value={itemsInCart()}
+      />
+    </i>
     Cart
   </NavLink>,
   <NavLink to={PAGES.about.route} key={PAGES.about.key}>
