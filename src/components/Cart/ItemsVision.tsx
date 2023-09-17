@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IPropsItems } from '../../types/interface';
-import styles from './CartEmpty.module.scss';
+import styles from './ItemsVision.module.scss';
 import {
   InputNumber,
   InputNumberValueChangeEvent,
@@ -73,6 +73,7 @@ export default function ItemsVision(props: IPropsItems): JSX.Element {
           className="mt-3 mb-1 border-round-lg"
           label="Delete"
           type="submit"
+          severity={'danger'}
           onClick={(): void => {
             asyncUpdateItemCart(props.value.id, 0, callback);
           }}

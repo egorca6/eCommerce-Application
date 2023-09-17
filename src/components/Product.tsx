@@ -5,7 +5,6 @@ import { covertPrice } from '../utils/product';
 import styles from './Product.module.scss';
 import {
   asyncAddItemCart,
-  asyncUpdateCartProductId,
   cartUserDraft,
   useIsItemInCart,
 } from './Cart/useItemCart';
@@ -14,7 +13,6 @@ import { useEffect, useRef, useState } from 'react';
 import {
   LIFE_TIME_MESSAGE,
   PRODUCT_ADD,
-  PRODUCT_REMOVE,
   SUCCESS_MESSAGE,
   WARN_MESSAGE,
 } from '../constants/product';
@@ -40,8 +38,6 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
   useEffect(() => {
     setProductInCart(cartIsItem.IsItem);
   }, [cartIsItem.IsItem]);
-
-  const callback = (): void => {};
 
   const messagePopUp = useRef<Toast>(null);
   const popUpMessage = (message: string): void => {
@@ -90,11 +86,7 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
             }
             onClick={(e): void => {
               e.stopPropagation();
-              if (!hasProductInCart) {
-                setProductInCart(true);
-                popUpMessage(PRODUCT_REMOVE);
-                asyncUpdateCartProductId(data.id, callback);
-              } else {
+              if (hasProductInCart) {
                 setProductInCart(false);
                 popUpMessage(PRODUCT_ADD);
                 if (count.cartID) {

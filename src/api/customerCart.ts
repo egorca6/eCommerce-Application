@@ -9,11 +9,18 @@ import { count } from '../constants/registratForm';
 import { apiRoot, apiRootAnonymous, apiRootCustom } from './Client';
 
 export const cartID = (cartID: string): Promise<ClientResponse<Cart>> => {
-  return apiRoot.carts().withId({ ID: cartID }).get().execute();
+  return apiRoot
+    .carts()
+    .withId({ ID: cartID })
+    .get({ queryArgs: { limit: 200 } })
+    .execute();
 };
 
 export const cartAll = (): Promise<ClientResponse<CartPagedQueryResponse>> => {
-  return apiRoot.carts().get().execute();
+  return apiRoot
+    .carts()
+    .get({ queryArgs: { limit: 200 } })
+    .execute();
 };
 
 export const cartDeleteID = (
@@ -94,19 +101,4 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
       })
       .execute();
   }
-};
-
-export const getProductsInCart = (): Promise<ClientResponse<Cart>> | null => {
-  if (count.switchApiRoot) {
-    return apiRootAnonymous
-      .me()
-      .carts()
-      .post({
-        body: {
-          currency: CURRENT_CURRENCY,
-        },
-      })
-      .execute();
-  }
-  return null;
 };

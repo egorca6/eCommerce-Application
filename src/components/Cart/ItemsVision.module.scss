@@ -1,0 +1,39 @@
+@import '../../styles/global';
+
+.cart_between_row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  background: transparent;
+  @include media-mobile {
+    flex-direction: column;
+  }
+}
+
+.cart_small_row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: start;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  background: transparent;
+}
+
+.cart_img {
+  width: 107px;
+  height: 107px;
+  margin: 0px 1vw;
+}
+
+.cart_span {
+  color: $color-brown;
+  font-weight: 100;
+  font-size: 1.4rem;
+  margin: 0.1rem 1rem;
+}

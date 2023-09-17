@@ -1,6 +1,6 @@
 import { GalleriaResponsiveOptions } from 'primereact/galleria';
 
-export const LIFE_TIME_MESSAGE = 3000;
+export const LIFE_TIME_MESSAGE = 1500;
 export const PRODUCT_ADD = 'Product has been added to cart';
 export const PRODUCT_REMOVE = 'The product has been removed from your cart';
 export const WARN_MESSAGE = 'warn';

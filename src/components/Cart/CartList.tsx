@@ -1,8 +1,7 @@
 import { Button } from 'primereact/button';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { useEffect, useRef, useState } from 'react';
 import { count } from '../../constants/registratForm';
-import styles from './CartEmpty.module.scss';
+import styles from './CartList.module.scss';
 import { LineItem } from '@commercetools/platform-sdk';
 import { useCartID } from './useCart';
 import ItemsVision from './ItemsVision';
@@ -12,11 +11,12 @@ import { asyncDeleteAllProductForCartID } from './useItemCart';
 import { ConfirmPopup } from 'primereact/confirmpopup';
 import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
+import { useNavigate } from 'react-router-dom';
 
 export const cartData: LineItem[] = [];
 let sumaCart = 0;
 export default function CartList(props: { onOffForm: object }): JSX.Element {
-  const [visibleCartList] = useState(props.onOffForm);
+  const navigate = useNavigate();
   const [itemsCart] = useState(cartData);
   const [sumCart, setSumCart] = useState(0);
   const [visibleError, setVisibleError] = useState<boolean>(false);
@@ -37,6 +37,7 @@ export default function CartList(props: { onOffForm: object }): JSX.Element {
     setSumCart(itemCart.sumaCart);
     itemCart.asyncCartID();
   }, [itemCart.isLoading]);
+
   useEffect(() => {
     setSumCart(itemCart.sumaCart + sumaCart);
     itemCart.asyncCartID();
@@ -48,9 +49,7 @@ export default function CartList(props: { onOffForm: object }): JSX.Element {
   const buttonEl = useRef(null);
 
   const accept = (): void => {
-    setTimeout((): void => {
-      asyncDeleteAllProductForCartID(editData);
-    }, 2000);
+    asyncDeleteAllProductForCartID(editData);
 
     toast.current?.show({
       severity: 'info',
@@ -111,10 +110,16 @@ export default function CartList(props: { onOffForm: object }): JSX.Element {
                   accept={accept}
                   reject={reject}
                 />
-                <div className="card flex justify-content-center">
+                <div className={styles.groupButton}>
+                  <Button
+                    onClick={(): void => navigate('/checkout')}
+                    icon="pi pi-check"
+                    label="go to checkout"
+                  />
                   <Button
                     ref={buttonEl}
                     onClick={(): void => setVisible(true)}
+                    severity={'danger'}
                     icon="pi pi-check"
                     label="Delete all product"
                   />

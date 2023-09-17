@@ -41,9 +41,11 @@ export const FormSingIn = (): JSX.Element => {
             asyncCartDeleteAnonim();
             count.cartAnonymID = '';
           }
-          cartCustomDraft(data.body.customer.id);
           count.cartID = data.body.cart?.id || '';
           count.versionCart = data.body.cart?.version || 1;
+          cartCustomDraft(data.body.customer.id);
+          // count.cartID = data.body.cart?.id || '';
+          // count.versionCart = data.body.cart?.version || 1;
 
           setIsAuth(true);
           logIn(data);

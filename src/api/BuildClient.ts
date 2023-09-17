@@ -32,19 +32,23 @@ const authMiddlewareOptionsAnonym: AnonymousAuthMiddlewareOptions = {
   fetch,
 };
 
-const authMiddlewareOptionsCustom: PasswordAuthMiddlewareOptions = {
-  host: process.env.REACT_APP_CTP_AUTH_URL || '',
-  projectKey: projectKey,
-  credentials: {
-    clientId: process.env.REACT_APP_CTP_CLIENT_ID || '',
-    clientSecret: process.env.REACT_APP_CTP_CLIENT_SECRET || '',
-    user: {
-      username: count.email,
-      password: count.password,
+export const authUser = (): PasswordAuthMiddlewareOptions => {
+  const userName = count.email;
+  const password = count.password;
+  return {
+    host: process.env.REACT_APP_CTP_AUTH_URL || '',
+    projectKey: projectKey,
+    credentials: {
+      clientId: process.env.REACT_APP_CTP_CLIENT_ID || '',
+      clientSecret: process.env.REACT_APP_CTP_CLIENT_SECRET || '',
+      user: {
+        username: userName,
+        password: password,
+      },
     },
-  },
-  scopes: [`${process.env.REACT_APP_CTP_SCOPES}`],
-  fetch,
+    scopes: [`${process.env.REACT_APP_CTP_SCOPES}`],
+    fetch,
+  };
 };
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
@@ -64,6 +68,7 @@ export const ctpClientAnonym = new ClientBuilder()
   .build();
 
 export const ctpClientCustom = new ClientBuilder()
-  .withPasswordFlow(authMiddlewareOptionsCustom)
+  .withPasswordFlow(authUser())
   .withHttpMiddleware(httpMiddlewareOptions)
+  .withUserAgentMiddleware()
   .build();

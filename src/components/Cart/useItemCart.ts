@@ -8,6 +8,7 @@ import {
 } from '../../api/customerCart';
 import { useState } from 'react';
 import { count } from '../../constants/registratForm';
+import { CartUpdateAction } from '@commercetools/platform-sdk';
 
 interface IuseIsItemInCart {
   isLoading: boolean;
@@ -61,6 +62,7 @@ export const asyncAddItemCart = async (itemID: string): Promise<void> => {
 };
 
 export const cartUserDraft = async (itemID: string): Promise<void> => {
+  console.log(itemID);
   await cartDraft()
     .then(body => {
       if (body.statusCode === 201) {
@@ -161,26 +163,30 @@ export const asyncDeleteAllProductForCartID = async (
   await cartID(count.cartID)
     .then(({ body }) => {
       count.versionCart = body.version;
-      let itemID = body.lineItems[0].id;
+      const array: CartUpdateAction[] = [];
+
+      body.lineItems.forEach(item => {
+        array.push({
+          action: 'changeLineItemQuantity',
+          lineItemId: item.id,
+          quantity: 0,
+        });
+      });
+
+      // let itemID = body.lineItems[0].id;
       const productDelete = async (): Promise<void> => {
-        await changeItemQuantity(count.cartID, count.versionCart, [
-          {
-            action: 'changeLineItemQuantity',
-            lineItemId: itemID,
-            quantity: 0,
-          },
-        ])
-          .then(({ body }) => {
-            if (body.lineItems.length) {
-              count.versionCart = body.version;
-              itemID = body.lineItems[0].id;
-              productDelete();
-            } else {
-              callback(true, 0);
-              count.cartID = '';
-              count.versionCart = 1;
-            }
-          })
+        await changeItemQuantity(count.cartID, count.versionCart, array)
+          // .then(({ body }) => {
+          //   if (body.lineItems.length) {
+          //     count.versionCart = body.version;
+          //     itemID = body.lineItems[0].id;
+          //     productDelete();
+          //   } else {
+          //     callback(true, 0);
+          //     count.cartID = '';
+          //     count.versionCart = 1;
+          //   }
+          // })
           .catch(error => {
             console.warn(error);
           });
@@ -193,23 +199,30 @@ export const asyncDeleteAllProductForCartID = async (
 };
 
 export const asyncCartDeleteAnonim = async (): Promise<void> => {
-  (async (): Promise<void> => {
-    await cartID(count.cartID)
-      .then(({ body }) => {
-        (async (): Promise<void> => {
-          await cartDeleteID(body.id, body.version)
-            .then(() => {})
-            .catch(console.error);
-        })();
-      })
-      .catch(console.error);
-  })();
+  try {
+    const response = await cartID(count.cartID);
+    const results = response.body;
+    await cartDeleteID(results.id, results.version);
+  } catch (err) {
+    console.log(err);
+  }
+  // (async (): Promise<void> => {
+  //   await cartID(count.cartID)
+  //     .then(({ body }) => {
+  //       (async (): Promise<void> => {
+  //         await cartDeleteID(body.id, body.version)
+  //           .then(() => {})
+  //           .catch(console.error);
+  //       })();
+  //     })
+  //     .catch(console.error);
+  // })();
 };
 
-interface IuseStartCart {
+interface IUseStartCart {
   isLoading: boolean;
 }
-export function useStartCart(): IuseStartCart {
+export function useStartCart(): IUseStartCart {
   const [isLoading, setLoading] = useState(true);
   if (count.switchRenderStartCart) {
     setTimeout(() => {
@@ -219,35 +232,32 @@ export function useStartCart(): IuseStartCart {
   return { isLoading };
 }
 
-function getLocalStorage(): void {
-  const idCusnom = localStorage.getItem('id');
-  if (idCusnom) {
+async function getLocalStorage(): Promise<void> {
+  const idCustom = localStorage.getItem('id');
+
+  if (idCustom) {
     count.switchApiRoot = false;
-    count.ID = idCusnom;
+    count.ID = idCustom;
   }
+
   const id = localStorage.getItem('idSaveAnonym');
   if (id) count.cartAnonymID = id;
-  (async (): Promise<void> => {
-    await cartAll()
-      .then(({ body }) => {
-        if (body.results) {
-          body.results.forEach(data => {
-            if (idCusnom) {
-              if (data.customerId === count.ID) {
-                count.cartID = data.id;
-                count.versionCart = data.version;
-              }
-            } else {
-              if (data.anonymousId === count.cartAnonymID) {
-                count.cartID = data.id;
-                count.versionCart = data.version;
-              }
-            }
-          });
-        }
-      })
-      .catch(console.error);
-  })();
+
+  const response = await cartAll();
+  const result = response.body.results;
+  result.forEach(data => {
+    if (idCustom) {
+      if (data.customerId === count.ID) {
+        count.cartID = data.id;
+        count.versionCart = data.version;
+      }
+    } else {
+      if (data.anonymousId === count.cartAnonymID) {
+        count.cartID = data.id;
+        count.versionCart = data.version;
+      }
+    }
+  });
 }
 
 function setLocalStorage(): void {
