@@ -14,4 +14,5 @@ export type PageKey =
 export interface Page {
   key: PageKey;
   route: string;
+  type?: string;
 }
