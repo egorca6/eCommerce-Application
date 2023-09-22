@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -7,7 +7,7 @@ import { INewPassword } from '../../types/interface';
 import { validPasswordForm } from './utils/validRegisterData';
 import { ErrorMessage } from './ErrorMessage';
 import { Checkbox } from 'primereact/checkbox';
-import styles from './AddressForm.module.scss';
+import styles from './NewPasswordForm.module.scss';
 import { count } from '../../constants/registratForm';
 import { newUserPassword } from '../../api/requestAddress';
 
@@ -16,13 +16,14 @@ count.ID = localStorage.getItem('id') as string;
 export const NewPasswordForm = (props: {
   toBack: (errorMessage: string) => void;
 }): JSX.Element => {
-  const form = useForm<INewPassword>({
+  const form = useForm({
     mode: 'onBlur',
     resolver: yupResolver(validPasswordForm),
   });
+
   const [checkedOldPassword, setCheckedOldPassword] = useState(false);
   const [checkedNewPassword, setCheckedNewPassword] = useState(false);
-  const onSubmit: SubmitHandler<INewPassword> = (data: INewPassword): void => {
+  const onSubmit = (data: INewPassword): void => {
     const callback = (errorMessage: string): void => {
       props.toBack(errorMessage);
     };
@@ -78,4 +79,3 @@ export const NewPasswordForm = (props: {
     </div>
   );
 };
-export default NewPasswordForm;

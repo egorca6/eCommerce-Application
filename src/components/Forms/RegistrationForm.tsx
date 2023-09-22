@@ -242,4 +242,3 @@ export const RegistrationForm = (props: {
     </form>
   );
 };
-export default RegistrationForm;

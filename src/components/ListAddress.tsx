@@ -9,7 +9,7 @@ import { deledeAddressID, setDefault } from '../api/requestAddress';
 import { getCustomerID } from '../api/customers';
 import { AddressVision } from './AddressVision';
 import { AddressForm } from './Forms/AddressForm';
-import styles from './Forms/AddressForm.module.scss';
+import styles from './ListAddress.module.scss';
 import { updateUserData } from './Forms/utils/updateUserData';
 
 let switchToDo = '';

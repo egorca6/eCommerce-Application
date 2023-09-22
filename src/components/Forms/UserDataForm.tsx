@@ -6,13 +6,13 @@ import { Button } from 'primereact/button';
 import { IUserData } from '../../types/interface';
 import { validUserData } from './utils/validRegisterData';
 import { ErrorMessage } from './ErrorMessage';
-import styles from './AddressForm.module.scss';
+import styles from './UserDataForm.module.scss';
 import { userData, count } from '../../constants/registratForm';
 import { editUserData } from '../../api/requestAddress';
 import { updateUserData } from './utils/updateUserData';
 import { getCustomerID } from '../../api/customers';
 import { Dialog } from 'primereact/dialog';
-import NewPasswordForm from './NewPasswordForm';
+import { NewPasswordForm } from './NewPasswordForm';
 import ListAddress from '../ListAddress';
 
 let messageUser = '';
