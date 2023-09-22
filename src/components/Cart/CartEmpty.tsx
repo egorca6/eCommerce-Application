@@ -7,7 +7,7 @@ export default function CartEmpty(): JSX.Element {
   const redirect = useNavigate();
   return (
     <div className={styles.cartEmpty}>
-      <p style={{ margin: '0.3rem' }}>Cart Empty</p>
+      <p>Cart Empty</p>
       <Button
         className="mt-3 mb-1 border-round-lg"
         label="To catalog"
