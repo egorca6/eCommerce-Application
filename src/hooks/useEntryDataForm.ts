@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { clientSignIn, registerNewCustomer } from '../api/customers';
 import { customerShippingBilling } from '../api/requestAddress';
 import {
@@ -7,15 +7,8 @@ import {
 } from '../components/Cart/useItemCart';
 import { setBillShipp } from '../components/Forms/utils/takeDataForm';
 import { count, newCustomerData } from '../constants/registratForm';
+import { EntryDataFormReturn } from '../types/hooks';
 import { logIn } from '../utils/user';
-
-type EntryDataFormReturn = {
-  visible: boolean;
-  onOfPoUpForm: () => void;
-  setVisible: Dispatch<SetStateAction<boolean>>;
-  showSuccessMessage: boolean;
-  registrationMessage: string | null;
-};
 
 export const useEntryDataForm = (): EntryDataFormReturn => {
   const [visible, setVisible] = useState<boolean>(false);

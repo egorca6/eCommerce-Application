@@ -1,8 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
-import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
+import { useContext, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { AuthContext } from '../components/authProvider';
-import * as yup from 'yup';
 import { REG_EXP_EMAIL, REG_EXP_PASSWORD } from '../constants/regEx';
 import {
   AUTHENTICATE_ERROR,
@@ -20,16 +19,8 @@ import {
 } from '../components/Cart/useItemCart';
 import { logIn } from '../utils/user';
 import { PAGES } from '../constants/pages';
-
-type SignInFormReturn = {
-  form: UseFormReturn<{
-    email: string;
-    password: string;
-  }>;
-  onSubmit: SubmitHandler<SignInForm>;
-  checked: boolean;
-  setChecked: Dispatch<SetStateAction<boolean>>;
-};
+import { SignInFormReturn } from '../types/hooks';
+import * as yup from 'yup';
 
 export const useSignInForm = (): SignInFormReturn => {
   const { setIsAuth } = useContext(AuthContext);

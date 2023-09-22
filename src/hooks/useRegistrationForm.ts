@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { useForm, UseFormReturn } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { takeDataForm } from '../components/Forms/utils/takeDataForm';
 import {
   addressSchema,
@@ -16,36 +16,7 @@ import {
   REG_EXP_NAME,
   REG_EXP_PASSWORD,
 } from '../constants/regEx';
-
-type RegistrationFormReturn = {
-  form: UseFormReturn<{
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    address: {
-      country: string;
-      city: string;
-      streetName: string;
-      postalCode: string;
-    }[];
-  }>;
-  identicalAddresses: boolean;
-  setIdenticalAddresses: Dispatch<SetStateAction<boolean>>;
-  checkedPassword: boolean;
-  setCheckedPassword: Dispatch<SetStateAction<boolean>>;
-  selectedCountry0: ICountriesData | null;
-  setSelectedCountry0: Dispatch<SetStateAction<ICountriesData | null>>;
-  selectedCountry1: ICountriesData | null;
-  setSelectedCountry1: Dispatch<SetStateAction<ICountriesData | null>>;
-  countries: ICountriesData[];
-  checkedShip: boolean;
-  setCheckedShip: Dispatch<SetStateAction<boolean>>;
-  checkedBill: boolean;
-  setCheckedBill: Dispatch<SetStateAction<boolean>>;
-  onSubmit: (data: IRegistrationForm) => void;
-};
+import { RegistrationFormReturn } from '../types/hooks';
 
 export const useRegistrationForm = (
   props: VoidFunction,

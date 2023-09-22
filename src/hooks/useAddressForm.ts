@@ -1,25 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { editAddressID } from '../api/requestAddress';
 import { countriesData } from '../constants/registratForm';
 import { IAddresses, ICountriesData, IpropsAddres } from '../types/interface';
 import { addressSchema } from '../components/Forms/utils/validRegisterData';
-
-type AddressFormReturn = {
-  form: UseFormReturn<{
-    country: string;
-    city: string;
-    streetName: string;
-    postalCode: string;
-  }>;
-  nameForm: string;
-  countryOld: string;
-  countries: ICountriesData[] | null;
-  onSubmit: SubmitHandler<IAddresses>;
-  selectedCountry: ICountriesData | null;
-  setSelectedCountry: Dispatch<SetStateAction<ICountriesData | null>>;
-};
+import { AddressFormReturn } from '../types/hooks';
 
 export const useAddressForm = (props: IpropsAddres): AddressFormReturn => {
   const form = useForm({

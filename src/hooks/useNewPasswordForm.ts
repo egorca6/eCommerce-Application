@@ -1,25 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Dispatch, SetStateAction, useState } from 'react';
-import { useForm, UseFormReturn } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { newUserPassword } from '../api/requestAddress';
 import { count } from '../constants/registratForm';
 import { INewPassword } from '../types/interface';
 import { ErrMessage } from '../types/types';
-import * as yup from 'yup';
 import { PASSWORD_ERROR } from '../constants/errors';
 import { REG_EXP_PASSWORD } from '../constants/regEx';
-
-type NewPasswordFormReturn = {
-  form: UseFormReturn<{
-    passwordOld: string;
-    passwordNew: string;
-  }>;
-  checkedOldPassword: boolean;
-  setCheckedOldPassword: Dispatch<SetStateAction<boolean>>;
-  checkedNewPassword: boolean;
-  setCheckedNewPassword: Dispatch<SetStateAction<boolean>>;
-  onSubmit: (data: INewPassword) => void;
-};
+import { NewPasswordFormReturn } from '../types/hooks';
+import * as yup from 'yup';
 
 export const useNewPasswordForm = (
   props: ErrMessage,
