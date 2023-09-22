@@ -8,7 +8,7 @@ import { newAddres, count } from '../constants/registratForm';
 import { deledeAddressID, setDefault } from '../api/requestAddress';
 import { getCustomerID } from '../api/customers';
 import { AddressVision } from './AddressVision';
-import AddressForm from './Forms/AddressForm';
+import { AddressForm } from './Forms/AddressForm';
 import styles from './Forms/AddressForm.module.scss';
 import { updateUserData } from './Forms/utils/updateUserData';
 
