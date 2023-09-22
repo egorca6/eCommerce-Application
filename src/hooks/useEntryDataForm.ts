@@ -17,7 +17,7 @@ type EntryDataFormReturn = {
   registrationMessage: string | null;
 };
 
-export function useEntryDataForm(): EntryDataFormReturn {
+export const useEntryDataForm = (): EntryDataFormReturn => {
   const [visible, setVisible] = useState<boolean>(false);
   const onOfPoUpForm = (): void => {
     handleRegistration();
@@ -91,4 +91,4 @@ export function useEntryDataForm(): EntryDataFormReturn {
     showSuccessMessage,
     registrationMessage,
   };
-}
+};

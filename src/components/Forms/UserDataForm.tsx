@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { IUserData } from '../../types/interface';
-import { validUserData } from './utils/validRegisterData';
+import { isOldEnough } from './utils/validRegisterData';
 import { ErrorMessage } from './ErrorMessage';
 import styles from './UserDataForm.module.scss';
 import { userData, count } from '../../constants/registratForm';
@@ -14,6 +14,9 @@ import { getCustomerID } from '../../api/customers';
 import { Dialog } from 'primereact/dialog';
 import { NewPasswordForm } from './NewPasswordForm';
 import ListAddress from '../ListAddress';
+import * as yup from 'yup';
+import { EMAIL_ERROR, NAME_ERROR } from '../../constants/errors';
+import { REG_EXP_EMAIL, REG_EXP_NAME } from '../../constants/regEx';
 
 let messageUser = '';
 let switchButton: 'button' | 'submit' | 'reset' | undefined = 'submit';
@@ -24,7 +27,35 @@ let asyncRender = async (): Promise<void> => {};
 export const UserDataForm = (): JSX.Element => {
   const form = useForm({
     mode: 'onBlur',
-    resolver: yupResolver(validUserData),
+    resolver: yupResolver(
+      yup.object().shape({
+        email: yup
+          .string()
+          .email()
+          .matches(REG_EXP_EMAIL.emailValid, EMAIL_ERROR.error)
+          .required(),
+        firstName: yup
+          .string()
+          .min(NAME_ERROR.minLength, NAME_ERROR.minLengthText)
+          .matches(
+            REG_EXP_NAME.noSpecialCharacters,
+            NAME_ERROR.noSpecialCharacters,
+          )
+          .required(),
+        lastName: yup
+          .string()
+          .min(NAME_ERROR.minLength, NAME_ERROR.minLengthText)
+          .matches(
+            REG_EXP_NAME.noSpecialCharacters,
+            NAME_ERROR.noSpecialCharacters,
+          )
+          .required(),
+        dateOfBirth: yup
+          .string()
+          .required()
+          .test('isOldEnough', 'You must be over 13', isOldEnough),
+      }),
+    ),
     defaultValues: {
       email: userData.email,
       firstName: userData.firstName,
@@ -59,7 +90,6 @@ export const UserDataForm = (): JSX.Element => {
       messageUser = 'Your Password has been successfully saved';
     }
     setVisible(true);
-    // messageUser = '';
   };
   const [visible, setVisible] = useState<boolean>(false);
   const [visiblePasswordForm, setvisiblePasswordForm] = useState(false);

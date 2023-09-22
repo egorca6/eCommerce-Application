@@ -31,7 +31,7 @@ type SignInFormReturn = {
   setChecked: Dispatch<SetStateAction<boolean>>;
 };
 
-export function useSignInForm(): SignInFormReturn {
+export const useSignInForm = (): SignInFormReturn => {
   const { setIsAuth } = useContext(AuthContext);
 
   const form = useForm({
@@ -92,4 +92,4 @@ export function useSignInForm(): SignInFormReturn {
   };
 
   return { form, onSubmit, checked, setChecked };
-}
+};
