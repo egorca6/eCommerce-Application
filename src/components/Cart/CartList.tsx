@@ -1,5 +1,4 @@
 import { Button } from 'primereact/button';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { useEffect, useRef, useState } from 'react';
 import { count } from '../../constants/registratForm';
 import styles from './CartList.module.scss';
