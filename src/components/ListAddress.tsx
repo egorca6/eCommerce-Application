@@ -7,7 +7,7 @@ import { IAddress } from '../types/interface';
 import { newAddres, count } from '../constants/registratForm';
 import { deledeAddressID, setDefault } from '../api/requestAddress';
 import { getCustomerID } from '../api/customers';
-import AddresVision from './AddresVision';
+import { AddressVision } from './AddressVision';
 import AddressForm from './Forms/AddressForm';
 import styles from './Forms/AddressForm.module.scss';
 import { updateUserData } from './Forms/utils/updateUserData';
@@ -72,7 +72,7 @@ export default function ListAddress(): JSX.Element {
           <div className="mb-5">
             {allAdress.map(adress => (
               <div className={styles.list_address} key={adress.id}>
-                <AddresVision
+                <AddressVision
                   value={{
                     country: adress.country,
                     city: adress.city,
@@ -103,7 +103,7 @@ export default function ListAddress(): JSX.Element {
         <div className="mb-5">
           {allAdress.map((adress, i) => (
             <div className={styles.list_address} key={adress.id}>
-              <AddresVision
+              <AddressVision
                 value={{
                   country: adress.country,
                   city: adress.city,
