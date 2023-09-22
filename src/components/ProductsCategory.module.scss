@@ -1,0 +1,54 @@
+@import '../styles/global';
+
+.main {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.category {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 90vw;
+  margin: 20px 0px;
+  @include media-mobile {
+    justify-content: space-around;
+  }
+  > * {
+    height: 190px;
+    width: 190px;
+    padding-top: 5px;
+    margin: 10px 0;
+    text-align: center;
+    align-items: flex-end;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border-radius: 8px;
+    color: $color-white;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    @media (max-width: 640px) {
+      height: 150px;
+      width: 150px;
+    }
+  }
+  .accessories {
+    background-image: url(../assets/accessories.jpg);
+  }
+  .cosmetics {
+    background-image: url(../assets/cosmetics.jpg);
+  }
+  .textiles {
+    background-image: url(../assets/textiles.jpg);
+  }
+  .sets {
+    background-image: url(../assets/gift_set.jpg);
+  }
+  .catalog {
+    background-image: url(../assets/catalog.png);
+  }
+}

@@ -1,0 +1,48 @@
+@import '../styles/global';
+
+.page {
+  display: flex;
+  max-width: 1280px;
+  padding: 0 50px;
+  margin: 0 auto;
+  min-height: calc(100vh - 150px);
+  @include media-mobile-big {
+    padding: 0 15px;
+  }
+}
+
+.page__content {
+  width: 100%;
+  @include media-tablet {
+    width: 100%;
+  }
+}
+
+.content {
+  display: grid;
+  padding: 30px 0;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  column-gap: 50px;
+  row-gap: 20px;
+  border-top: 3px solid $color-brown;
+  @include media-tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include media-mobile {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  & .paginationButton {
+    margin: 10px;
+  }
+  & .paginationButtonActive {
+    border: solid 2px $color-red;
+    margin: 10px;
+  }
+}

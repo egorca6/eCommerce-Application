@@ -1,0 +1,63 @@
+@import '../styles/global';
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: $color-light;
+  color: $color-dark;
+  margin: 0 auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-general;
+  color: $color-brown;
+  height: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: $color-general;
+  height: 100px;
+}
+
+.header__wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  padding: 0 50px;
+  margin: 0 auto;
+  @include media-mobile-big {
+    padding: 0 10px;
+  }
+}
+
+.navigation {
+  display: flex;
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    color: $color-white;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    &.active {
+      color: $color-brown;
+    }
+    &:hover {
+      color: $color-brown;
+    }
+  }
+}
+
+@include media-mobile-big {
+  .navigation {
+    display: none;
+  }
+}

@@ -1,0 +1,53 @@
+@import '../../styles/global';
+
+.main {
+  margin: 20px 0;
+  border-top: 2px solid $color-brown;
+}
+
+.content {
+  display: grid;
+  padding: 10px 0;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  column-gap: 50px;
+  row-gap: 20px;
+
+  @include media-tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include media-mobile {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.content_main {
+  display: flex;
+  flex-direction: row;
+  @include media-tablet {
+    flex-direction: column;
+  }
+  @include media-mobile {
+    flex-direction: column;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  & .paginationButton {
+    margin: 10px;
+  }
+  & .paginationButtonActive {
+    border: solid 2px $color-red;
+    margin: 10px;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  border: none;
+  margin: 0 auto;
+  background: $color-light;
+}

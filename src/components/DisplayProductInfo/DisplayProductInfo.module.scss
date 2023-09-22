@@ -1,0 +1,46 @@
+@import '../../styles/global';
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  @include media-mobile-big {
+    flex-direction: column;
+  }
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  font-size: 16px;
+  font-weight: 700;
+  // padding-top: 2em;
+}
+
+.highlight {
+  color: $color-green;
+  max-width: 5em;
+  font-size: 22px;
+  font-weight: 700;
+}
+.noDiscount {
+  font-size: 20px;
+  font-weight: 700;
+  // padding-top: 2em;
+}
+
+.enlarged {
+  width: 45em;
+}
+
+.breadcrumb {
+  display: flex;
+  border: none;
+  margin: 0 auto;
+  background: $color-light;
+  font-size: 1.1rem;
+  @include media-mobile-big {
+    font-size: 1rem;
+  }
+  @include media-mobile {
+    font-size: 0.6rem;
+  }
+}

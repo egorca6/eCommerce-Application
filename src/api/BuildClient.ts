@@ -1,38 +1,27 @@
 import fetch from 'node-fetch';
 import {
   ClientBuilder,
-
-  // Import middlewares
-  type AuthMiddlewareOptions, // Required for auth
-  type HttpMiddlewareOptions, // Required for sending HTTP requests
+  type AuthMiddlewareOptions,
+  type HttpMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
-import {
-  CTP_API_URL,
-  CTP_AUTH_URL,
-  CTP_CLIENT_ID,
-  CTP_CLIENT_SECRET,
-  CTP_PROJECT_KEY,
-  CTP_SCOPES,
-} from '../constants/sdKECommerce';
 
-const projectKey = CTP_PROJECT_KEY;
-const scopes = [CTP_SCOPES];
+const projectKey = process.env.REACT_APP_CTP_PROJECT_KEY || '';
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: CTP_AUTH_URL,
+  host: process.env.REACT_APP_CTP_AUTH_URL || '',
   projectKey: projectKey,
   credentials: {
-    clientId: CTP_CLIENT_ID,
-    clientSecret: CTP_CLIENT_SECRET,
+    clientId: process.env.REACT_APP_CTP_CLIENT_ID || '',
+    clientSecret: process.env.REACT_APP_CTP_CLIENT_SECRET || '',
   },
-  scopes,
+  scopes: [`manage_project:${projectKey}`],
   fetch,
 };
 
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: CTP_API_URL,
+  host: process.env.REACT_APP_CTP_API_URL || '',
   fetch,
 };
 
@@ -41,5 +30,5 @@ export const ctpClient = new ClientBuilder()
   .withProjectKey(projectKey) // .withProjectKey() is not required if the projectKey is included in authMiddlewareOptions
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
+  // .withLoggerMiddleware() // @note используем чтобы выводить в консоль запросы отправляемые commercetools/sdk
   .build();
