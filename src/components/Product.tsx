@@ -3,12 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PAGES } from '../constants/pages';
 import { covertPrice } from '../utils/product';
 import styles from './Product.module.scss';
-import {
-  asyncAddItemCart,
-  asyncUpdateCartProductId,
-  cartUserDraft,
-  useIsItemInCart,
-} from './Cart/useItemCart';
+import { useIsItemInCart } from '../hooks/useItemCart';
 import { count } from '../constants/registratForm';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -19,6 +14,11 @@ import {
   WARN_MESSAGE,
 } from '../constants/product';
 import { Toast } from 'primereact/toast';
+import {
+  asyncAddItemCart,
+  asyncUpdateCartProductId,
+  cartUserDraft,
+} from '../api/cart';
 
 export const ProductItem = (data: ProductProjection): JSX.Element => {
   const price = data.masterVariant.prices?.[0].value.centAmount;
@@ -31,7 +31,7 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
   const description = data.description?.['en-US'].slice(0, 50);
 
   const navigate = useNavigate();
-  //=========
+
   const [checked, setChecked] = useState<boolean>(false);
   let keyProduct = '';
   const id = key;
@@ -41,8 +41,6 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
     setChecked(cartIsItem.IsItem);
   }, [cartIsItem.IsItem]);
 
-  // так понимаю эту функцию мы можем удалить, setVisibleError(true) вызывать напрямую
-  // в на месте вызова callback
   const callback = (): void => {};
 
   const messagePopUp = useRef<Toast>(null);
@@ -96,7 +94,6 @@ export const ProductItem = (data: ProductProjection): JSX.Element => {
               if (!checked) {
                 setChecked(true);
                 popUpMessage(PRODUCT_REMOVE);
-                // функцию переделать посмотреть, нужен ли нам тут callback
                 asyncUpdateCartProductId(data.id, callback);
               } else {
                 setChecked(false);

@@ -7,43 +7,40 @@ import { IAddress } from '../types/interface';
 import { newAddres, count } from '../constants/registratForm';
 import { deledeAddressID, setDefault } from '../api/requestAddress';
 import { getCustomerID } from '../api/customers';
-import AddresVision from './AddresVision';
-import AddressForm from './Forms/AddressForm';
-import styles from './Forms/AddressForm.module.scss';
+import { AddressVision } from './AddressVision';
+import { AddressForm } from './Forms/AddressForm';
+import styles from './ListAddress.module.scss';
 import { updateUserData } from './Forms/utils/updateUserData';
 
 let switchToDo = '';
 let messageUser = '';
 let addressForForm: IAddress = newAddres[0];
 export default function ListAddress(): JSX.Element {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visibleError, setVisibleError] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
+  const [visibleError, setVisibleError] = useState(false);
   const [visibleAddresForm, setVisibleAddresForm] = useState(false);
   const [allAdress, setAdress] = useState(newAddres);
-  const [getDefoltShip, setDefoltShip] = useState<string>('');
-  const [getDefoltBill, setDefoltBill] = useState<string>('');
+  const [getDefoltShip, setDefoltShip] = useState('');
+  const [getDefoltBill, setDefoltBill] = useState('');
 
-  const renderForm = (errorMessage: string): void => {
+  const renderForm = (message: string): void => {
     (async (): Promise<void> => {
       await getCustomerID(count.ID)
         .then(({ body }) => {
           updateUserData(body);
-          console.log(body);
         })
         .catch(console.error);
       if (switchToDo === 'Add' || switchToDo === 'Edit') {
         setVisibleAddresForm(false);
       } else {
-        // if (switchToDo === 'DefoltStart') {
         setDefoltShip(count.defaultShipping);
         setDefoltBill(count.defaultBilling);
-        // }
       }
       switchToDo = '';
       setAdress([...newAddres]);
     })();
-    if (errorMessage !== '') {
-      messageUser = errorMessage;
+    if (message !== '') {
+      messageUser = message;
     }
     setVisibleError(true);
   };
@@ -72,7 +69,7 @@ export default function ListAddress(): JSX.Element {
           <div className="mb-5">
             {allAdress.map(adress => (
               <div className={styles.list_address} key={adress.id}>
-                <AddresVision
+                <AddressVision
                   value={{
                     country: adress.country,
                     city: adress.city,
@@ -103,7 +100,7 @@ export default function ListAddress(): JSX.Element {
         <div className="mb-5">
           {allAdress.map((adress, i) => (
             <div className={styles.list_address} key={adress.id}>
-              <AddresVision
+              <AddressVision
                 value={{
                   country: adress.country,
                   city: adress.city,

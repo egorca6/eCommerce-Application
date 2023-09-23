@@ -1,3 +1,4 @@
+import { count } from '../constants/registratForm';
 import {
   addProductCart,
   cartAll,
@@ -5,50 +6,7 @@ import {
   cartDraft,
   cartID,
   changeItemQuantity,
-} from '../../api/customerCart';
-import { useState } from 'react';
-import { count } from '../../constants/registratForm';
-
-interface IuseIsItemInCart {
-  isLoading: boolean;
-  IsItem: boolean;
-  error: string;
-}
-export function useIsItemInCart(itemKey: string): IuseIsItemInCart {
-  const [isLoading, setLoading] = useState(true);
-  const [IsItem, setIsItem] = useState(true);
-  const [error, setError] = useState('');
-  (async (): Promise<void> => {
-    await cartID(count.cartID)
-      .then(body => {
-        if (body.statusCode === 200) {
-          if (count.cartID) {
-            count.versionCart = body.body.version;
-            if (body.body.lineItems) {
-              body.body.lineItems.forEach(data => {
-                if (data.productKey === itemKey.trim()) {
-                  count.productId = data.id;
-                  setIsItem(false);
-                }
-              });
-            }
-          }
-        }
-      })
-      .catch(error => {
-        console.warn(error);
-        if (error.code === 400) {
-          setError(`ERROR: ${error.message}${error.code}`);
-        } else {
-          setError(`ERROR: ${error.message}${error.code}`);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  })();
-  return { isLoading, IsItem, error };
-}
+} from './customerCart';
 
 export const asyncAddItemCart = async (itemID: string): Promise<void> => {
   await addProductCart(count.cartID, count.versionCart, itemID)
@@ -205,19 +163,6 @@ export const asyncCartDeleteAnonim = async (): Promise<void> => {
       .catch(console.error);
   })();
 };
-
-interface IuseStartCart {
-  isLoading: boolean;
-}
-export function useStartCart(): IuseStartCart {
-  const [isLoading, setLoading] = useState(true);
-  if (count.switchRenderStartCart) {
-    setTimeout(() => {
-      setLoading(false);
-    }, 100);
-  }
-  return { isLoading };
-}
 
 function getLocalStorage(): void {
   const idCusnom = localStorage.getItem('id');

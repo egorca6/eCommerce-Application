@@ -1,0 +1,57 @@
+@import '../../styles/global';
+
+.user_data_main {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  margin: auto;
+  background: transparent;
+  @media (max-width: 630px) {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
+.registration_data_name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  margin: 0px 2vw;
+  background: transparent;
+}
+
+.registration_address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  margin: 5px 0;
+  background: transparent;
+  border: 1px solid $color-brown;
+  border-radius: 8px;
+}
+
+.span_head {
+  color: $color-brown;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin: 0.3rem 1rem;
+}
+
+.registration_span {
+  color: $color-brown;
+  font-weight: 100;
+  font-size: 0.9rem;
+  margin: 0.1rem 1rem;
+}

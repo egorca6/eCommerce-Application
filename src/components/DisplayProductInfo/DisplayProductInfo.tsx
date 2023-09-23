@@ -5,19 +5,11 @@ import { getProductByKey } from '../../api/products';
 import { Card } from 'primereact/card';
 import { FIRST_INDEX } from '../../constants/common';
 import { covertPrice } from '../../utils/product';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BreadCrumb } from 'primereact/breadcrumb';
-import { MenuItem } from 'primereact/menuitem';
-import { PAGES } from '../../constants/pages';
 import styles from './DisplayProductInfo.module.scss';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
-import {
-  asyncAddItemCart,
-  asyncUpdateCartProductId,
-  cartUserDraft,
-  useIsItemInCart,
-  // useUpdateItemCart,
-} from '../Cart/useItemCart';
+import { useIsItemInCart } from '../../hooks/useItemCart';
 import { count } from '../../constants/registratForm';
 import { Toast } from 'primereact/toast';
 import {
@@ -30,10 +22,14 @@ import {
   SUCCESS_MESSAGE,
   WARN_MESSAGE,
 } from '../../constants/product';
-//=======
+import {
+  asyncAddItemCart,
+  asyncUpdateCartProductId,
+  cartUserDraft,
+} from '../../api/cart';
+import { useBreadCrumbs } from '../../hooks/useBreadCrumbs';
 
 export function DisplayProductInfo(keyProduct: string): JSX.Element {
-  const location = useLocation();
   const [images, setImages] = useState<ImageSDK[]>();
   const [nameProduct, setNameProduct] = useState<string>();
   const [descriptionProduct, setDescriptionProduct] = useState<string>();
@@ -43,16 +39,13 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
   const galleria = useRef<Galleria>(null);
   const responsiveOptions: GalleriaResponsiveOptions[] = BREAKPOINTS_GALLERIA;
   const returnToErrorPage = useNavigate();
-  //=========
   const [checked, setChecked] = useState<boolean>(false);
-  //ну и эту тоже в добавок
-  // const [visibleError, setVisibleError] = useState<boolean>(false);
+
   const cartIsItem = useIsItemInCart(keyProduct);
   useEffect(() => {
     setChecked(cartIsItem.IsItem);
   }, [cartIsItem.IsItem]);
 
-  // эту тоже функцию надо будет выпилить)
   const callback = (): void => {};
 
   const messagePopUp = useRef<Toast>(null);
@@ -65,7 +58,6 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
     });
   };
 
-  //==========
   useEffect(() => {
     getProductByKey(keyProduct)
       .then(data => {
@@ -118,27 +110,15 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
     return <img src={item.url} alt={item.label} style={{ width: '50%' }} />;
   };
 
-  const items: MenuItem[] = [];
-  const home: MenuItem = { icon: 'pi pi-home', url: '/' };
-
-  location.pathname.split('/').forEach(path => {
-    if (path === PAGES.catalog.key) {
-      items.push({ label: `${path}`, url: `/${path}` });
-    } else if (
-      path.length &&
-      (path === PAGES.accessories.key ||
-        path === PAGES.textiles.key ||
-        path === PAGES.cosmetics.key)
-    ) {
-      items.push({ label: `${path}`, url: `../${path}` });
-    } else if (path.length) {
-      items.push({ label: `${path}` });
-    }
-  });
+  const { itemsBreadCrumbs, home } = useBreadCrumbs();
 
   return (
     <>
-      <BreadCrumb model={items} home={home} className={styles.breadcrumb} />
+      <BreadCrumb
+        model={itemsBreadCrumbs}
+        home={home}
+        className={styles.breadcrumb}
+      />
       <div className={styles.wrapper}>
         <Galleria
           value={images}

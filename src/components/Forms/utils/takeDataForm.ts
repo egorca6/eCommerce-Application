@@ -1,6 +1,6 @@
 import { newCustomerData } from '../../../constants/registratForm';
 import { IRegistrationForm, IAddresses } from '../../../types/interface';
-import { logIn, userAge } from '../../../utils/user';
+import { userAge } from '../../../utils/user';
 
 let newAddress: IAddresses[] = [
   {

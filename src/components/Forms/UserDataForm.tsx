@@ -1,81 +1,28 @@
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { IUserData } from '../../types/interface';
-import { validUserData } from './utils/validRegisterData';
 import { ErrorMessage } from './ErrorMessage';
-import styles from './AddressForm.module.scss';
-import { userData, count } from '../../constants/registratForm';
-import { editUserData } from '../../api/requestAddress';
-import { updateUserData } from './utils/updateUserData';
-import { getCustomerID } from '../../api/customers';
 import { Dialog } from 'primereact/dialog';
-import NewPasswordForm from './NewPasswordForm';
+import { NewPasswordForm } from './NewPasswordForm';
+import styles from './UserDataForm.module.scss';
 import ListAddress from '../ListAddress';
+import { useUserDataForm } from '../../hooks/useUserDataForm';
 
-let messageUser = '';
 let switchButton: 'button' | 'submit' | 'reset' | undefined = 'submit';
 let switchReadOnly = true;
 let buttonLabel = 'Edit';
 let background = { background: 'transparent' };
-let asyncRender = async (): Promise<void> => {};
-export const UserDataForm = (): JSX.Element => {
-  const form = useForm({
-    mode: 'onBlur',
-    resolver: yupResolver(validUserData),
-    defaultValues: {
-      email: userData.email,
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      dateOfBirth: userData.dateOfBirth,
-    },
-  });
-  if (count.switchRenderUserData) {
-    const id = localStorage.getItem('id');
-    if (id) count.ID = id;
-    if (count.ID) {
-      asyncRender = async (): Promise<void> => {
-        await getCustomerID(count.ID)
-          .then(({ body }) => {
-            updateUserData(body);
-          })
-          .catch(console.error);
-        form.setValue('email', userData.email);
-        form.setValue('firstName', userData.firstName);
-        form.setValue('lastName', userData.lastName);
-        form.setValue('dateOfBirth', userData.dateOfBirth);
-      };
-      asyncRender();
-      count.switchRenderUserData = false;
-    }
-  }
 
-  const closeForm = (errorMessage: string): void => {
-    if (errorMessage !== '') {
-      messageUser = errorMessage;
-    } else {
-      messageUser = 'Your Password has been successfully saved';
-    }
-    setVisible(true);
-    // messageUser = '';
-  };
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visiblePasswordForm, setvisiblePasswordForm] = useState(false);
-  const onSubmit: SubmitHandler<IUserData> = (data: IUserData): void => {
-    count.switchRenderUserData = true;
-    const callback = (errorMessage: string): void => {
-      asyncRender();
-      if (errorMessage !== '') {
-        messageUser = errorMessage;
-      } else {
-        messageUser = 'Your data has been successfully saved';
-      }
-      setVisible(true);
-    };
-    editUserData(data, callback);
-  };
+export const UserDataForm = (): JSX.Element => {
+  const {
+    form,
+    messageUser,
+    closeForm,
+    visible,
+    setVisible,
+    visiblePasswordForm,
+    setvisiblePasswordForm,
+    onSubmit,
+  } = useUserDataForm();
 
   return (
     <div className={styles.user_data_main}>
