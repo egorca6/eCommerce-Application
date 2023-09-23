@@ -5,9 +5,10 @@ import {
   InputNumber,
   InputNumberValueChangeEvent,
 } from 'primereact/inputnumber';
-import { asyncUpdateItemCart, useStartCart } from './useItemCart';
 import { Button } from 'primereact/button';
 import { count } from '../../constants/registratForm';
+import { useStartCart } from '../../hooks/useStartCart';
+import { asyncUpdateItemCart } from '../../api/cart';
 
 export default function ItemsVision(props: IpropsItems): JSX.Element {
   const [value, setValue] = useState(props.value.count);

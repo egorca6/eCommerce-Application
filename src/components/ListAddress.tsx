@@ -28,16 +28,13 @@ export default function ListAddress(): JSX.Element {
       await getCustomerID(count.ID)
         .then(({ body }) => {
           updateUserData(body);
-          console.log(body);
         })
         .catch(console.error);
       if (switchToDo === 'Add' || switchToDo === 'Edit') {
         setVisibleAddresForm(false);
       } else {
-        // if (switchToDo === 'DefoltStart') {
         setDefoltShip(count.defaultShipping);
         setDefoltBill(count.defaultBilling);
-        // }
       }
       switchToDo = '';
       setAdress([...newAddres]);

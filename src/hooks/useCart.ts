@@ -1,18 +1,10 @@
-import { cartID } from '../../api/customerCart';
+import { cartID } from '../api/customerCart';
 import { useState } from 'react';
-import { LineItem } from '@commercetools/platform-sdk';
-import { cartData } from './CartList';
-import { count } from '../../constants/registratForm';
+import { cartData } from '../components/Cart/CartList';
+import { count } from '../constants/registratForm';
+import { IUseCartID } from '../types/hooks';
 
-interface IuseCartID {
-  asyncCartID: () => void;
-  isLoading: boolean;
-  response: LineItem[];
-  error: string;
-  version: number;
-  sumaCart: number;
-}
-export function useCartID(ID: string): IuseCartID {
+export function useCartID(ID: string): IUseCartID {
   const [isLoading, setLoading] = useState(true);
   const [response, setResponse] = useState(cartData);
   const [version, setVersion] = useState(0);

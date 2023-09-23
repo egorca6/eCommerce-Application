@@ -1,3 +1,4 @@
+import { LineItem } from '@commercetools/platform-sdk';
 import { Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import {
@@ -98,4 +99,23 @@ export interface AddressFormReturn {
   onSubmit: SubmitHandler<IAddresses>;
   selectedCountry: ICountriesData | null;
   setSelectedCountry: Dispatch<SetStateAction<ICountriesData | null>>;
+}
+
+export interface IUseCartID {
+  asyncCartID: () => void;
+  isLoading: boolean;
+  response: LineItem[];
+  error: string;
+  version: number;
+  sumaCart: number;
+}
+
+export interface IUseIsItemInCart {
+  isLoading: boolean;
+  IsItem: boolean;
+  error: string;
+}
+
+export interface IuseStartCart {
+  isLoading: boolean;
 }

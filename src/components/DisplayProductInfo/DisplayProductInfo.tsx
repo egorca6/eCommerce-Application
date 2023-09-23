@@ -11,13 +11,7 @@ import { MenuItem } from 'primereact/menuitem';
 import { PAGES } from '../../constants/pages';
 import styles from './DisplayProductInfo.module.scss';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
-import {
-  asyncAddItemCart,
-  asyncUpdateCartProductId,
-  cartUserDraft,
-  useIsItemInCart,
-  // useUpdateItemCart,
-} from '../Cart/useItemCart';
+import { useIsItemInCart } from '../../hooks/useItemCart';
 import { count } from '../../constants/registratForm';
 import { Toast } from 'primereact/toast';
 import {
@@ -30,7 +24,11 @@ import {
   SUCCESS_MESSAGE,
   WARN_MESSAGE,
 } from '../../constants/product';
-//=======
+import {
+  asyncAddItemCart,
+  asyncUpdateCartProductId,
+  cartUserDraft,
+} from '../../api/cart';
 
 export function DisplayProductInfo(keyProduct: string): JSX.Element {
   const location = useLocation();
@@ -43,16 +41,13 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
   const galleria = useRef<Galleria>(null);
   const responsiveOptions: GalleriaResponsiveOptions[] = BREAKPOINTS_GALLERIA;
   const returnToErrorPage = useNavigate();
-  //=========
   const [checked, setChecked] = useState<boolean>(false);
-  //ну и эту тоже в добавок
-  // const [visibleError, setVisibleError] = useState<boolean>(false);
+
   const cartIsItem = useIsItemInCart(keyProduct);
   useEffect(() => {
     setChecked(cartIsItem.IsItem);
   }, [cartIsItem.IsItem]);
 
-  // эту тоже функцию надо будет выпилить)
   const callback = (): void => {};
 
   const messagePopUp = useRef<Toast>(null);
@@ -65,7 +60,6 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
     });
   };
 
-  //==========
   useEffect(() => {
     getProductByKey(keyProduct)
       .then(data => {

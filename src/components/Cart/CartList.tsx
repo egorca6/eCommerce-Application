@@ -1,77 +1,35 @@
 import { Button } from 'primereact/button';
-import { useEffect, useRef, useState } from 'react';
 import { count } from '../../constants/registratForm';
 import styles from './CartList.module.scss';
 import { LineItem } from '@commercetools/platform-sdk';
-import { useCartID } from './useCart';
 import ItemsVision from './ItemsVision';
 import { FIRST_INDEX } from '../../constants/common';
 import CartEmpty from './CartEmpty';
-import { asyncDeleteAllProductForCartID } from './useItemCart';
 import { ConfirmPopup } from 'primereact/confirmpopup';
 import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
 import { useNavigate } from 'react-router';
+import { useCartList } from '../../hooks/useCartList';
 
 export const cartData: LineItem[] = [];
-let sumaCart = 0;
-
 export default function CartList(props: { onOffForm: object }): JSX.Element {
   const navigate = useNavigate();
+  const {
+    visibleCartList,
+    itemCart,
+    itemsCart,
+    editData,
+    sumCart,
+    visible,
+    setVisible,
+    toast,
+    accept,
+    reject,
+    buttonEl,
+    visibleError,
+    setVisibleError,
+  } = useCartList(props);
 
-  const [visibleCartList] = useState(props.onOffForm);
-  const [itemsCart] = useState(cartData);
-  const [sumCart, setSumCart] = useState(0);
-  const [visibleError, setVisibleError] = useState<boolean>(false);
-  const [deletItem, setDeletItem] = useState(false);
-
-  const itemCart = useCartID(count.cartID);
-
-  count.versionCart = itemCart.version;
-  const editData = (delet: boolean, sumaItem: number): void => {
-    setDeletItem(delet);
-    sumaCart = sumaItem;
-    if (count.errors) {
-      setVisibleError(true);
-    }
-  };
-
-  useEffect(() => {
-    setSumCart(itemCart.sumaCart);
-    itemCart.asyncCartID();
-  }, [itemCart.isLoading]);
-  useEffect(() => {
-    setSumCart(itemCart.sumaCart + sumaCart);
-    itemCart.asyncCartID();
-    setDeletItem(false);
-  }, [deletItem]);
-
-  const [visible, setVisible] = useState<boolean>(false);
-  const toast = useRef<Toast>(null);
-  const buttonEl = useRef(null);
-
-  const accept = (): void => {
-    setTimeout((): void => {
-      asyncDeleteAllProductForCartID(editData);
-    }, 2000);
-
-    toast.current?.show({
-      severity: 'info',
-      summary: 'Confirmed',
-      detail:
-        'The cart has been deleted. What is money more important than pleasure?',
-      life: 2000,
-    });
-  };
-
-  const reject = (): void => {
-    toast.current?.show({
-      severity: 'warn',
-      summary: 'Rejected',
-      detail: 'Thanks for your great choice!!!',
-      life: 3000,
-    });
-  };
   return (
     <div className={styles.list_cart}>
       <div className={styles.cart_middle} style={visibleCartList}>

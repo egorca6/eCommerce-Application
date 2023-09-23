@@ -1,10 +1,7 @@
 import { useState } from 'react';
+import { asyncCartDeleteAnonim, cartCustomDraft } from '../api/cart';
 import { clientSignIn, registerNewCustomer } from '../api/customers';
 import { customerShippingBilling } from '../api/requestAddress';
-import {
-  asyncCartDeleteAnonim,
-  cartCustomDraft,
-} from '../components/Cart/useItemCart';
 import { setBillShipp } from '../components/Forms/utils/takeDataForm';
 import { count, newCustomerData } from '../constants/registratForm';
 import { EntryDataFormReturn } from '../types/hooks';

@@ -13,14 +13,11 @@ import { SignInForm } from '../types/interface';
 import { count } from '../constants/registratForm';
 import { clientSignIn } from '../api/customers';
 import { STATUS_OK } from '../constants/api';
-import {
-  asyncCartDeleteAnonim,
-  cartCustomDraft,
-} from '../components/Cart/useItemCart';
 import { logIn } from '../utils/user';
 import { PAGES } from '../constants/pages';
 import { SignInFormReturn } from '../types/hooks';
 import * as yup from 'yup';
+import { asyncCartDeleteAnonim, cartCustomDraft } from '../api/cart';
 
 export const useSignInForm = (): SignInFormReturn => {
   const { setIsAuth } = useContext(AuthContext);

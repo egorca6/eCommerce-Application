@@ -1,4 +1,6 @@
-import { commonLinks, LinksIsNotAuth, LinksIsAuth } from './Links';
+import { commonLinks } from './Links/Links';
+import { LinksIsAuth } from './Links/LinksIsAuth';
+import { LinksIsNotAuth } from './Links/LinksIsNotAuth';
 
 interface AuthLinksProps {
   isAuth: boolean;
