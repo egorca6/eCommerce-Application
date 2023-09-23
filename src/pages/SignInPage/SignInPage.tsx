@@ -5,7 +5,7 @@ import { PAGES } from '../../constants/pages';
 import styles from './SignInPage.module.scss';
 
 export const SignInPage = (): JSX.Element => {
-  const toRegistrationForm = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.page}>
@@ -18,7 +18,7 @@ export const SignInPage = (): JSX.Element => {
         className="mt-3 mb-8 border-round-lg"
         label="Registration"
         type="button"
-        onClick={(): void => toRegistrationForm(PAGES.registration.route)}
+        onClick={(): void => navigate(PAGES.registration.route)}
       />
     </div>
   );

@@ -10,10 +10,6 @@ import { ProductsCategory } from '../../components/ProductsCategory';
 
 export const MainPage = (): JSX.Element => {
   const [products, setProducts] = useState<ProductProjection[]>();
-  useEffect(() => {
-    allProduct();
-  }, []);
-
   const allProduct = async (): Promise<void> => {
     const products = await getProducts();
     const totalCount = products.body.total;
@@ -23,6 +19,9 @@ export const MainPage = (): JSX.Element => {
       setProducts(randomProducts.body.results);
     }
   };
+  useEffect(() => {
+    allProduct();
+  }, []);
 
   return (
     <>

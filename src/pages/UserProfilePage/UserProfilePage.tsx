@@ -6,25 +6,24 @@ import { count } from '../../constants/registratForm';
 import styles from './UserProfilePage.module.scss';
 
 export const UserProfilePage = (): JSX.Element => {
-  const toSignInPage = useNavigate();
+  const navigate = useNavigate();
   const id = localStorage.getItem('id');
   if (id) count.ID = id;
+
   useEffect(() => {
     if (!count.ID) {
-      toSignInPage(PAGES.signin.route);
+      navigate(PAGES.signin.route);
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
-      {count.ID ? (
+      {count.ID && (
         <div className={styles.page}>
           <div className="registration__page content">
             <UserDataForm />
           </div>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

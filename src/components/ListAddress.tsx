@@ -16,14 +16,14 @@ let switchToDo = '';
 let messageUser = '';
 let addressForForm: IAddress = newAddres[0];
 export default function ListAddress(): JSX.Element {
-  const [visible, setVisible] = useState<boolean>(false);
-  const [visibleError, setVisibleError] = useState<boolean>(false);
+  const [visible, setVisible] = useState(false);
+  const [visibleError, setVisibleError] = useState(false);
   const [visibleAddresForm, setVisibleAddresForm] = useState(false);
   const [allAdress, setAdress] = useState(newAddres);
-  const [getDefoltShip, setDefoltShip] = useState<string>('');
-  const [getDefoltBill, setDefoltBill] = useState<string>('');
+  const [getDefoltShip, setDefoltShip] = useState('');
+  const [getDefoltBill, setDefoltBill] = useState('');
 
-  const renderForm = (errorMessage: string): void => {
+  const renderForm = (message: string): void => {
     (async (): Promise<void> => {
       await getCustomerID(count.ID)
         .then(({ body }) => {
@@ -39,8 +39,8 @@ export default function ListAddress(): JSX.Element {
       switchToDo = '';
       setAdress([...newAddres]);
     })();
-    if (errorMessage !== '') {
-      messageUser = errorMessage;
+    if (message !== '') {
+      messageUser = message;
     }
     setVisibleError(true);
   };
