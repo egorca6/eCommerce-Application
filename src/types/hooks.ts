@@ -1,4 +1,5 @@
 import { LineItem } from '@commercetools/platform-sdk';
+import { MenuItem } from 'primereact/menuitem';
 import { Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import {
@@ -118,4 +119,9 @@ export interface IUseIsItemInCart {
 
 export interface IuseStartCart {
   isLoading: boolean;
+}
+
+export interface BreadCrumbsReturn {
+  itemsBreadCrumbs: MenuItem[];
+  home: MenuItem;
 }
