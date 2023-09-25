@@ -10,6 +10,7 @@ import {
   IUserData,
   SignInForm,
 } from './interface';
+import { Image as ImageSDK } from '@commercetools/platform-sdk';
 
 export interface UserDataFormReturn {
   form: UseFormReturn<{
@@ -124,4 +125,13 @@ export interface IuseStartCart {
 export interface BreadCrumbsReturn {
   itemsBreadCrumbs: MenuItem[];
   home: MenuItem;
+}
+
+export interface ProductData {
+  images: ImageSDK[];
+  nameProduct: string;
+  descriptionProduct: string;
+  typeProduct: string;
+  priceProductDiscount: string;
+  priceFullProduct: string;
 }

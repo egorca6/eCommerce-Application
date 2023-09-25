@@ -6,13 +6,16 @@ import { NewPasswordForm } from './NewPasswordForm';
 import styles from './UserDataForm.module.scss';
 import ListAddress from '../ListAddress';
 import { useUserDataForm } from '../../hooks/useUserDataForm';
-
-let switchButton: 'button' | 'submit' | 'reset' | undefined = 'submit';
-let switchReadOnly = true;
-let buttonLabel = 'Edit';
-let background = { background: 'transparent' };
+import { useState } from 'react';
 
 export const UserDataForm = (): JSX.Element => {
+  const [switchButton, setSwitchButton] = useState<
+    'button' | 'submit' | 'reset' | undefined
+  >('submit');
+  const [switchReadOnly, setSwitchReadOnly] = useState(true);
+  const [buttonLabel, setButtonLabel] = useState('Edit');
+  const [background, setBackground] = useState({ background: 'transparent' });
+
   const {
     form,
     messageUser,
@@ -81,16 +84,16 @@ export const UserDataForm = (): JSX.Element => {
             label={buttonLabel}
             type={switchButton}
             onClick={(): void => {
-              switchReadOnly = switchButton === 'submit' ? false : true;
               if (switchReadOnly) {
-                switchButton = 'submit';
-                buttonLabel = 'Edit';
-                background = { background: 'transparent' };
+                setSwitchButton('button');
+                setButtonLabel('Save');
+                setBackground({ background: '#e7dacf' });
               } else {
-                switchButton = 'button';
-                buttonLabel = 'Save';
-                background = { background: '#e7dacf' };
+                setSwitchButton('submit');
+                setButtonLabel('Edit');
+                setBackground({ background: 'transparent' });
               }
+              setSwitchReadOnly(!switchReadOnly);
               form.reset({}, { keepValues: true });
             }}
           />

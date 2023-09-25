@@ -1,3 +1,5 @@
+import { Image as ImageSDK } from '@commercetools/platform-sdk';
+
 export interface SignInForm {
   email: string;
   password: string;
@@ -73,4 +75,8 @@ export interface IcartItems {
 export interface IpropsItems {
   value: IcartItems;
   editDataCart: (delet: boolean, sumaItem: number) => void;
+}
+
+export interface ProductImagesGalleryProps {
+  images: ImageSDK[];
 }
