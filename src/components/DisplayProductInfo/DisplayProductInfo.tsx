@@ -52,7 +52,7 @@ export function DisplayProductInfo(keyProduct: string): JSX.Element {
       <BreadCrumb
         model={itemsBreadCrumbs}
         home={home}
-        className={styles['custom-breadcrumb']}
+        className={styles.breadcrumb}
       />
       <div className={styles.wrapper}>
         <ProductImagesGallery images={productData.images} />
