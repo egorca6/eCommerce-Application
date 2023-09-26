@@ -31,3 +31,12 @@
   width: 40vw;
   text-align: center;
 }
+.card {
+  min-width: 274px;
+  margin: 5px;
+  padding: 0.5rem;
+  border: 0.05vw;
+  border-style: solid;
+  border-color: $color-brown;
+  border-radius: 8px;
+}

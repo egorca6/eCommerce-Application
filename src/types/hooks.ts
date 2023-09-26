@@ -3,6 +3,7 @@ import { MenuItem } from 'primereact/menuitem';
 import { Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, UseFormReturn } from 'react-hook-form';
 import {
+  IAddress,
   IAddresses,
   ICountriesData,
   INewPassword,
@@ -134,4 +135,27 @@ export interface ProductData {
   typeProduct: string;
   priceProductDiscount: string;
   priceFullProduct: string;
+}
+
+export interface AddressLogic {
+  switchToDo: string;
+  messageUser: string;
+  addressForForm: IAddress;
+  visible: boolean;
+  visibleError: boolean;
+  visibleAddresForm: boolean;
+  allAdress: IAddress[];
+  getDefoltShip: string;
+  getDefoltBill: string;
+  renderForm: (message: string) => void;
+  handleDeleteAddress: (addressId: string) => void;
+  handleEditAddress: (address: IAddress) => void;
+  handleNewAddress: () => void;
+  handleFormClose: () => void;
+  setDefoltShip: (value: string) => void;
+  setDefoltBill: (value: string) => void;
+  setVisibleAddresForm: React.Dispatch<React.SetStateAction<boolean>>;
+  setVisibleError: React.Dispatch<React.SetStateAction<boolean>>;
+  setSwitchToDo: React.Dispatch<React.SetStateAction<string>>;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
