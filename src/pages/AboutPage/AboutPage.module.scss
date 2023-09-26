@@ -1,0 +1,68 @@
+@import '../../styles/global';
+
+.page {
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 150px);
+  padding: 20px;
+}
+
+.member {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+.member h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+.member p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  white-space: pre-line;
+  text-align: justify;
+}
+.member img {
+  width: 75%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.member a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.member a:hover {
+  text-decoration: underline;
+}
+h1 {
+  text-align: center;
+}
+
+.info {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 650px) {
+  .page {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.rsSchoolLogo {
+  max-width: 200px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}

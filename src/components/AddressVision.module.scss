@@ -1,0 +1,31 @@
+@import '../styles/global';
+
+.addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.list_address {
+  margin: 0.3rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-color: $color-brown;
+  border: 0.05vw solid $color-brown;
+  border-radius: 8px;
+}
+
+.span {
+  color: $color-brown;
+  font-weight: 100;
+  margin: 0.1rem 1rem;
+}
+
+.default {
+  font-weight: 700;
+  color: $color-brown;
+}

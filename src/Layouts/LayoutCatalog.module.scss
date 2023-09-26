@@ -1,0 +1,19 @@
+@import '../styles/global';
+
+.page {
+  display: flex;
+  max-width: 1280px;
+  padding: 0 50px;
+  margin: 0 auto;
+  min-height: calc(100vh - 150px);
+  @include media-mobile-big {
+    padding: 0 15px;
+  }
+}
+
+.pageContent {
+  width: 100%;
+  @include media-tablet {
+    width: 100%;
+  }
+}
