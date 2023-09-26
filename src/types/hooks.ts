@@ -159,3 +159,24 @@ export interface AddressLogic {
   setSwitchToDo: React.Dispatch<React.SetStateAction<string>>;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface AddressDialog {
+  switchToDo: string;
+  messageUser: string;
+  addressForForm: IAddress;
+  visible: boolean;
+  visibleError: boolean;
+  visibleAddresForm: boolean;
+  allAdress: IAddress[];
+  getDefoltShip: string;
+  getDefoltBill: string;
+  renderForm: (message: string) => void;
+  handleDeleteAddress: (addressId: string) => void;
+  handleEditAddress: (address: IAddress) => void;
+  handleNewAddress: () => void;
+  handleFormClose: () => void;
+  setDefoltShip: (value: string) => void;
+  setDefoltBill: (value: string) => void;
+  setVisibleAddresForm: React.Dispatch<React.SetStateAction<boolean>>;
+  setVisibleError: React.Dispatch<React.SetStateAction<boolean>>;
+}
