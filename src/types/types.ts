@@ -14,3 +14,11 @@ export type FilterParams = {
   name: string;
   value: string;
 };
+
+export type ErrMessage = {
+  toBack: (errorMessage: string) => void;
+};
+
+export type VoidFunction = {
+  create: () => void;
+};

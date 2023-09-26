@@ -9,40 +9,35 @@ const requestStart = (
   action: CustomerUpdateAction[],
   back: (errorMessage: string) => void,
 ): void => {
-  let errorMessage = '';
+  let message = '';
   customersIdPostExecute(count.ID, count.version, action)
     .then(({ body }) => {
       updateUserData(body);
+      back(message);
     })
     .catch(error => {
-      if (error.code === 400) {
-        errorMessage = `ERROR: ${error.message}`;
-      } else {
-        errorMessage = `ERROR: ${error.message}  Should try again later`;
-      }
-    })
-    .finally(() => {
-      back(errorMessage);
+      message = `ERROR: ${error.message} Should try again later`;
+      back(message);
     });
 };
 
 export const setDefault = (defoltShip: string, defoltBill: string): void => {
   let action: CustomerUpdateAction[] = [];
-  if (defoltShip.length > 0 || defoltBill.length > 0) {
-    if (defoltShip.length > 0) {
+  if (defoltShip.length || defoltBill.length) {
+    if (defoltShip.length) {
       action.push({
         action: 'setDefaultShippingAddress',
         addressId: defoltShip,
       });
     }
-    if (defoltBill.length > 0) {
+    if (defoltBill.length) {
       action.push({
         action: 'setDefaultBillingAddress',
         addressId: defoltBill,
       });
     }
     const callback = (): void => {};
-    if (action.length > 0) {
+    if (action.length) {
       requestStart(action, callback);
     }
   }
@@ -95,20 +90,15 @@ export const newUserPassword = (
   passwordNew: string,
   toForm: (errorMessage: string) => void,
 ): void => {
-  let errorMessage = '';
+  let message = '';
   newPassword(count.ID, count.version, passwordOld, passwordNew)
     .then(({ body }) => {
       updateUserData(body);
+      toForm(message);
     })
     .catch(error => {
-      if (error.code === 400) {
-        errorMessage = `ERROR: ${error.message}`;
-      } else {
-        errorMessage = `ERROR: ${error.message}  Should try again later`;
-      }
-    })
-    .finally(() => {
-      toForm(errorMessage);
+      message = `ERROR: ${error.message} Should try again later`;
+      toForm(message);
     });
 };
 

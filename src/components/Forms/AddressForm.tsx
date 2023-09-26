@@ -1,53 +1,21 @@
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import {
-  ICountriesData,
-  IpropsAddres,
-  IAddresses,
-} from '../../types/interface';
-import { countriesData } from '../../constants/registratForm';
-import { addressSchema } from './utils/validRegisterData';
+import { IpropsAddres } from '../../types/interface';
 import { ErrorMessage } from './ErrorMessage';
 import styles from './AddressForm.module.scss';
-import { editAddressID } from '../../api/requestAddress';
+import { useAddressForm } from '../../hooks/useAddressForm';
 
 export const AddressForm = (props: IpropsAddres): JSX.Element => {
-  const form = useForm({
-    mode: 'onBlur',
-    resolver: yupResolver(addressSchema),
-  });
-
-  const nameForm = props.toDo === 'Add' ? 'New Address' : 'Edit Address';
-  const countryOld =
-    props.value.country === 'RU' ? 'Russian Federation (RU)' : 'Belarus (BY)';
-  const [selectedCountry, setSelectedCountry] = useState<ICountriesData | null>(
-    null,
-  );
-  const countries: ICountriesData[] = countriesData;
-
-  const onSubmit: SubmitHandler<IAddresses> = (data: IAddresses): void => {
-    data.country = selectedCountry
-      ? selectedCountry.countryCode
-      : props.value.country;
-    const callback = (errorMessage: string): void => {
-      if (errorMessage === '') {
-        errorMessage =
-          props.toDo === 'Add'
-            ? 'Address added successfully'
-            : 'Address changed successfully';
-      }
-      props.closeForm(errorMessage);
-    };
-    if (props.toDo === 'Add') {
-      editAddressID(data, '', callback);
-    } else {
-      editAddressID(data, props.value.id, callback);
-    }
-  };
+  const {
+    form,
+    nameForm,
+    countryOld,
+    countries,
+    onSubmit,
+    selectedCountry,
+    setSelectedCountry,
+  } = useAddressForm(props);
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-column">
@@ -77,7 +45,7 @@ export const AddressForm = (props: IpropsAddres): JSX.Element => {
               setSelectedCountry(e.value);
             }}
             value={selectedCountry}
-            options={countries}
+            options={countries?.length ? countries : []}
             optionLabel="name"
             placeholder={countryOld}
           />
@@ -101,4 +69,3 @@ export const AddressForm = (props: IpropsAddres): JSX.Element => {
     </form>
   );
 };
-export default AddressForm;

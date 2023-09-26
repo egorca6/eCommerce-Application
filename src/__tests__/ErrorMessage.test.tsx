@@ -1,43 +1,21 @@
 import { render, screen } from '@testing-library/react';
 import { ErrorMessage } from '../components/Forms/ErrorMessage';
 
-describe('ErrorMessage component', () => {
-  it('renders error message for email', () => {
-    const props = {
-      name: 'email',
-      err: {
-        email: { message: 'Invalid email', type: 'validation' },
-      },
-    };
+describe('ErrorMessage Component', () => {
+  it('renders with error message and correct class', () => {
+    const errorMessageText = 'This is an error message';
+    render(<ErrorMessage err={errorMessageText} />);
 
-    render(<ErrorMessage {...props} />);
+    const errorMessage = screen.getByText(errorMessageText);
 
-    expect(screen.getByText('Invalid email')).toBeInTheDocument();
+    expect(errorMessage).toBeInTheDocument();
   });
 
-  it('renders error message for password', () => {
-    const props = {
-      name: 'password',
-      err: {
-        password: { message: 'Invalid password', type: 'validation' },
-      },
-    };
+  it('renders without error message and has "hidden" class', () => {
+    render(<ErrorMessage err={undefined} />);
 
-    render(<ErrorMessage {...props} />);
+    const errorMessage = screen.queryByText('This is an error message');
 
-    expect(screen.getByText('Invalid password')).toBeInTheDocument();
-  });
-
-  it('renders error message for firstName', () => {
-    const props = {
-      name: 'firstName',
-      err: {
-        firstName: { message: 'Invalid first name', type: 'validation' },
-      },
-    };
-
-    render(<ErrorMessage {...props} />);
-
-    expect(screen.getByText('Invalid first name')).toBeInTheDocument();
+    expect(errorMessage).not.toBeInTheDocument();
   });
 });

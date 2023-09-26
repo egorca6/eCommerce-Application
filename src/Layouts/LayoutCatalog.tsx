@@ -4,13 +4,11 @@ import styles from './LayoutCatalog.module.scss';
 
 export const LayoutCatalog = (): JSX.Element => {
   return (
-    <>
-      <div className={styles.page}>
-        <div className={styles.page__content}>
-          <ProductsCategory />
-          <Outlet />
-        </div>
+    <div className={styles.page}>
+      <div className={styles.pageContent}>
+        <ProductsCategory />
+        <Outlet />
       </div>
-    </>
+    </div>
   );
 };

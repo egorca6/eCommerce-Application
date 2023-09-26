@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import App from '../App';
+import { BrowserRouter } from 'react-router-dom';
 
-test('renders the MainPage by default', () => {
+test('renders Catalog link', () => {
   render(
     <BrowserRouter>
       <App />
     </BrowserRouter>,
   );
 
-  expect(screen.getByText('Main page')).toBeInTheDocument();
+  const catalogLink = screen.getByText('ACCESSORIES');
+  expect(catalogLink).toBeInTheDocument();
 });

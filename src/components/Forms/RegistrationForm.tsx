@@ -1,47 +1,32 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputSwitch } from 'primereact/inputswitch';
 import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { ICountriesData, IRegistrationForm } from '../../types/interface';
-import { countriesData } from '../../constants/registratForm';
-import { takeDataForm } from './utils/takeDataForm';
-import { validRegisterData } from './utils/validRegisterData';
 import { ErrorMessage } from './ErrorMessage';
 import { Checkbox } from 'primereact/checkbox';
 import styles from './RegistrationForm.module.scss';
+import { useRegistrationForm } from '../../hooks/useRegistrationForm';
+import { VoidFunction } from '../../types/types';
 
-export const RegistrationForm = (props: {
-  create: () => void;
-}): JSX.Element => {
-  const form = useForm({
-    mode: 'onBlur',
-    resolver: yupResolver(validRegisterData),
-  });
-  const [identicalAddresses, setIdenticalAddresses] = useState(false);
-  const [checkedPassword, setCheckedPassword] = useState(false);
-
-  const [selectedCountry0, setSelectedCountry0] =
-    useState<ICountriesData | null>(null);
-  const [selectedCountry1, setSelectedCountry1] =
-    useState<ICountriesData | null>(null);
-  const countries: ICountriesData[] = countriesData;
-  const [checkedShip, setCheckedShip] = useState<boolean>(false);
-  const [checkedBill, setCheckedBill] = useState<boolean>(false);
-
-  const onSubmit = (data: IRegistrationForm): void => {
-    data.address[0].country = selectedCountry0
-      ? selectedCountry0.countryCode
-      : '';
-    data.address[1].country = selectedCountry1
-      ? selectedCountry1.countryCode
-      : '';
-    takeDataForm(data, checkedShip, checkedBill, identicalAddresses);
-    props.create();
-  };
+export const RegistrationForm = (props: VoidFunction): JSX.Element => {
+  const {
+    form,
+    identicalAddresses,
+    setIdenticalAddresses,
+    checkedPassword,
+    setCheckedPassword,
+    selectedCountry0,
+    setSelectedCountry0,
+    selectedCountry1,
+    setSelectedCountry1,
+    countries,
+    checkedShip,
+    setCheckedShip,
+    checkedBill,
+    setCheckedBill,
+    onSubmit,
+  } = useRegistrationForm(props);
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-column">
@@ -242,4 +227,3 @@ export const RegistrationForm = (props: {
     </form>
   );
 };
-export default RegistrationForm;

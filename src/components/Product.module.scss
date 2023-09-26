@@ -63,5 +63,12 @@
   .icon {
     font-size: 1.8rem;
     color: $color-brown;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      color: $color-green;
+    }
+    &.active {
+      color: $color-green;
+    }
   }
 }

@@ -11,8 +11,27 @@ import { apiRoot } from './Client';
 
 export const clientSignIn = (
   data: CustomerSignin,
+  anonymCartId: string,
 ): ApiRequest<CustomerSignInResult> => {
-  return apiRoot.login().post({ body: data });
+  if (anonymCartId) {
+    return apiRoot.login().post({
+      body: {
+        email: data.email,
+        password: data.password,
+        anonymousCart: {
+          id: anonymCartId,
+          typeId: 'cart',
+        },
+      },
+    });
+  } else {
+    return apiRoot.login().post({
+      body: {
+        email: data.email,
+        password: data.password,
+      },
+    });
+  }
 };
 
 export const registerNewCustomer = (

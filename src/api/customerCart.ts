@@ -2,11 +2,13 @@ import {
   ClientResponse,
   Cart,
   CartPagedQueryResponse,
-  CartAddLineItemAction,
   CartUpdateAction,
+  createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
 import { ByProjectKeyShoppingListsRequestBuilder } from '@commercetools/platform-sdk/dist/declarations/src/generated/client/shopping-lists/by-project-key-shopping-lists-request-builder';
-import { apiRoot } from './Client';
+import { ClientBuilder } from '@commercetools/sdk-client-v2';
+import { count } from '../constants/registratForm';
+import { apiRoot, apiRootAnonymous } from './Client';
 
 export const shopList = (): ByProjectKeyShoppingListsRequestBuilder => {
   return apiRoot.shoppingLists();
@@ -18,17 +20,6 @@ export const cartID = (cartID: string): Promise<ClientResponse<Cart>> => {
 
 export const cartAll = (): Promise<ClientResponse<CartPagedQueryResponse>> => {
   return apiRoot.carts().get().execute();
-};
-
-export const cartDraft = (cartID: string): Promise<ClientResponse<Cart>> => {
-  return apiRoot
-    .carts()
-    .post({
-      body: {
-        currency: 'EUR',
-      },
-    })
-    .execute();
 };
 
 export const cartDeleteID = (
@@ -48,17 +39,23 @@ export const cartDeleteID = (
 };
 
 export const addProductCart = (
-  customerID: string,
+  cartID: string,
   version: number,
-  actions: CartAddLineItemAction[],
+  productId: string,
 ): Promise<ClientResponse<Cart>> => {
   return apiRoot
     .carts()
-    .withId({ ID: customerID })
+    .withId({ ID: cartID })
     .post({
       body: {
         version: version,
-        actions: actions,
+        actions: [
+          {
+            action: 'addLineItem',
+            productId: productId,
+            quantity: 1,
+          },
+        ],
       },
     })
     .execute();
@@ -76,14 +73,54 @@ export const changeItemQuantity = (
       body: {
         version: version,
         actions: actions,
-        // [
-        //   {
-        //     action: 'changeLineItemQuantity',
-        //     lineItemId: 'aa24f2e2-9a84-47bb-a1b0-3f1e88ce6df9',
-        //     quantity: 10,
-        //   },
-        // ],
       },
     })
     .execute();
+};
+
+export const cartDraft = (): Promise<ClientResponse<Cart>> => {
+  if (count.switchApiRoot) {
+    return apiRootAnonymous
+      .me()
+      .carts()
+      .post({
+        body: {
+          currency: 'EUR',
+        },
+      })
+      .execute();
+  } else {
+    const customClient = new ClientBuilder()
+      .withPasswordFlow({
+        host: 'https://auth.europe-west1.gcp.commercetools.com',
+        projectKey: 'bon747jour',
+        credentials: {
+          clientId: process.env.REACT_APP_CTP_CLIENT_ID || '',
+          clientSecret: process.env.REACT_APP_CTP_CLIENT_SECRET || '',
+          user: {
+            username: count.email,
+            password: count.password,
+          },
+        },
+        scopes: [`manage_project:${'bon747jour'}`],
+        fetch,
+      })
+      .withHttpMiddleware({
+        host: 'https://api.europe-west1.gcp.commercetools.com',
+        fetch,
+      })
+      .build();
+    return createApiBuilderFromCtpClient(customClient)
+      .withProjectKey({
+        projectKey: 'bon747jour',
+      })
+      .me()
+      .carts()
+      .post({
+        body: {
+          currency: 'EUR',
+        },
+      })
+      .execute();
+  }
 };

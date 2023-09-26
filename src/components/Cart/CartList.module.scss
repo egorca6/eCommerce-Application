@@ -1,0 +1,71 @@
+@import '../../styles/global';
+
+.cart_span {
+  color: $color-brown;
+  font-weight: 100;
+  font-size: 1.4rem;
+  margin: 0.1rem 1rem;
+  @media (max-width: 500px) {
+    font-size: 1.1rem;
+  }
+}
+
+.list_cart {
+  padding: 0.5rem;
+  border-color: $color-brown;
+  border-radius: 8px;
+}
+
+.list_cart_white {
+  margin: 0.3rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-color: $color-brown;
+  border: 0vw solid $color-brown;
+  border-radius: 8px;
+}
+
+.cart_middle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  background: transparent;
+}
+
+.cart_middle_row {
+  color: #333;
+  font-size: 2vw;
+  padding: 5px;
+  background: transparent;
+  @media (max-width: 700px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}
+
+.cart_ScrollPanel {
+  width: 70%;
+  height: 540px;
+  @media (max-width: 700px) {
+    .cart_ScrollPanel {
+      width: 100%;
+    }
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  @media (max-width: 560px) {
+    flex-direction: column;
+    button {
+      margin: 5px 0;
+      width: 250px;
+    }
+  }
+}
