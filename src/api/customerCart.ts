@@ -93,7 +93,7 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
     const customClient = new ClientBuilder()
       .withPasswordFlow({
         host: 'https://auth.europe-west1.gcp.commercetools.com',
-        projectKey: 'bon747jour',
+        projectKey: 'qzxcerty1234',
         credentials: {
           clientId: process.env.REACT_APP_CTP_CLIENT_ID || '',
           clientSecret: process.env.REACT_APP_CTP_CLIENT_SECRET || '',
@@ -102,7 +102,7 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
             password: count.password,
           },
         },
-        scopes: [`manage_project:${'bon747jour'}`],
+        scopes: [`manage_project:${'qzxcerty1234'}`],
         fetch,
       })
       .withHttpMiddleware({
@@ -112,7 +112,7 @@ export const cartDraft = (): Promise<ClientResponse<Cart>> => {
       .build();
     return createApiBuilderFromCtpClient(customClient)
       .withProjectKey({
-        projectKey: 'bon747jour',
+        projectKey: 'qzxcerty1234',
       })
       .me()
       .carts()
